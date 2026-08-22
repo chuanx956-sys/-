@@ -1,0 +1,7509 @@
+{
+  "id": "d57d7b21-6d86-4c4c-a69e-1ef0f837008a",
+  "revision": 5,
+  "last_node_id": 283,
+  "last_link_id": 587,
+  "nodes": [
+    {
+      "id": 120,
+      "type": "VAELoader",
+      "pos": [
+        -3000,
+        110
+      ],
+      "size": [
+        610,
+        70
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            250,
+            274
+          ]
+        }
+      ],
+      "title": "01 Audio VAE",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_audio_vae_fp32.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors",
+            "directory": "vae"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "vae_name": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "minimax_h3_audio_vae_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 121,
+      "type": "VAEDecodeAudio",
+      "pos": [
+        420,
+        -190
+      ],
+      "size": [
+        260,
+        70
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 95,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 347
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 250
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            259,
+            319
+          ]
+        }
+      ],
+      "title": "04 Decode Audio",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAEDecodeAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 122,
+      "type": "VAEDecode",
+      "pos": [
+        420,
+        -300
+      ],
+      "size": [
+        260,
+        70
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 94,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 346
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 251
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            318,
+            258
+          ]
+        }
+      ],
+      "title": "04 Decode Video Frames",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAEDecode",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 156,
+      "type": "MiniMaxH3FrameLengthCommercial",
+      "pos": [
+        -2270,
+        60
+      ],
+      "size": [
+        330,
+        120
+      ],
+      "flags": {},
+      "order": 78,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "seconds"
+          },
+          "link": 526
+        }
+      ],
+      "outputs": [
+        {
+          "name": "length_frames",
+          "type": "INT",
+          "links": [
+            316,
+            560
+          ]
+        },
+        {
+          "name": "actual_seconds",
+          "type": "FLOAT",
+          "links": [
+            317
+          ]
+        }
+      ],
+      "title": "02 H3 Frame Alignment（17k+5）/ 当前片段",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3FrameLengthCommercial",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "seconds": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        5
+      ]
+    },
+    {
+      "id": 157,
+      "type": "MiniMaxH3OutputQCCommercial",
+      "pos": [
+        750,
+        -100
+      ],
+      "size": [
+        400,
+        230
+      ],
+      "flags": {},
+      "order": 97,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 318
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 319
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valid",
+          "type": "BOOLEAN",
+          "links": null
+        },
+        {
+          "name": "qc_report",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "duration_seconds",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "04 Commercial Output QC",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3OutputQCCommercial",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "fps": true,
+            "require_audio": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        24,
+        true
+      ]
+    },
+    {
+      "id": 167,
+      "type": "LoadAudio",
+      "pos": [
+        -440,
+        1130
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            332,
+            335
+          ]
+        }
+      ],
+      "title": "07 Standalone Audio 3 - Optional Reference",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "audio": true,
+            "audioUI": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 166,
+      "type": "LoadAudio",
+      "pos": [
+        -440,
+        890
+      ],
+      "size": [
+        340,
+        140
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            331,
+            334
+          ]
+        }
+      ],
+      "title": "07 Standalone Audio 2 - Optional Reference",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "audio": true,
+            "audioUI": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 169,
+      "type": "ReservedVRAMSetter",
+      "pos": [
+        -3000,
+        220
+      ],
+      "size": [
+        330,
+        220
+      ],
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 336
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            322
+          ]
+        },
+        {
+          "name": "SEED",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "Reserved(GB)",
+          "type": "FLOAT",
+          "links": null
+        }
+      ],
+      "title": "01 Reserved VRAM 1 GB / Benchmark Parity",
+      "properties": {
+        "cnr_id": "reservedvram",
+        "ver": "d4dfb468da8f1c84533ab190bc531ee206afa690",
+        "Node name for S&R": "ReservedVRAMSetter",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "reserved": true,
+            "mode": true,
+            "seed": true,
+            "auto_max_reserved": true,
+            "clean_gpu_before": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        1,
+        "manual",
+        368051540962068,
+        "randomize",
+        0,
+        true
+      ]
+    },
+    {
+      "id": 117,
+      "type": "MarkdownNote",
+      "pos": [
+        -3790,
+        -180
+      ],
+      "size": [
+        520,
+        300
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "00 模型下载与目录",
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "## Model Links\n[🤗 Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3)\n\n**vae**\n\n- [minimax_h3_video_vae_fp16.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors)\n- [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors)\n\n**diffusion_models**\n\n- [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors)\n\n**text_encoders**\n\n- [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors)\n\n\n## Model Storage Location\n\n```\n📂 ComfyUI/\n├── 📂 models/\n│   ├── 📂 vae/\n│   │   ├── minimax_h3_video_vae_fp16.safetensors\n│   │   └── minimax_h3_audio_vae_fp32.safetensors\n│   ├── 📂 diffusion_models/\n│   │   └── minimax_h3_ref2va_pruned_int8_convrot.safetensors\n│   └── 📂 text_encoders/\n│       └── qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors\n```\n\n## Report Issue\n\nNote: Please update ComfyUI first ([guide](https://docs.comfy.org/installation/update_comfyui)) and prepare required models. Desktop/Cloud updates follow stable releases, so some nightly-supported models may not be available yet.\n\n- Cannot run / runtime errors: [ComfyUI/issues](https://github.com/comfyanonymous/ComfyUI/issues)\n- UI / frontend issues: [ComfyUI_frontend/issues](https://github.com/Comfy-Org/ComfyUI_frontend/issues)\n- Workflow issues: [workflow_templates/issues](https://github.com/Comfy-Org/workflow_templates/issues)\n"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 116,
+      "type": "MarkdownNote",
+      "pos": [
+        -3790,
+        180
+      ],
+      "size": [
+        520,
+        300
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "00 MiniMax H3 使用说明",
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "## MiniMax H3\n\n[MiniMax H3](https://www.minimax.io/blog/minimax-h3) is MiniMax's general-purpose, omni-modal generation model. It jointly understands text, image, video, and audio, and generates video with **native stereo audio**: voice, sound effects, and music are modeled jointly in a single forward pass, not layered on afterward. Output is up to 2K resolution, 24fps, and up to about 15 seconds.\n\n## ComfyUI links\n- [ComfyUI#15224](https://github.com/Comfy-Org/ComfyUI/pull/15224)\n- [🤗 Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3)\n\n## About this workflow\n\nThis template runs the **reference-to-video (ref2va)** task using the `MiniMaxH3ReferenceToVideo` node. It takes any mix of reference images, videos, and standalone audio, and weaves them into the generation to lock in a character's identity, a style, a motion, a camera move, or a voice.\n\n**Key inputs**\n\n- **ref_images / ref_videos / ref_video_audios / ref_audios**: up to 9 reference images, 3 reference videos (each may carry its own paired soundtrack), and 3 standalone reference audio clips\n- **prompt**: reference the inputs by tag, in the exact order they were connected, for example `<Picture 1>`, `<Video 1>`, `<Audio 1>`, then describe the target scene, motion, and audio\n- **ref_image_size**: `match` scales references down to the generation's resolution (faster); `max` keeps up to a 2048px short edge for stronger identity fidelity, at the cost of speed since reference tokens ride along every sampling step\n- **width / height**: set via Resolution Selector.\n- **duration (seconds)**: converted to a valid frame `length` by the Math Expression node\n\n**Sampling and decode**\n\n- Sampler: `res_multistep`. `beta` or \normal` scheduler tends to outperform `simple` for reference-heavy prompts like this one\n- The sampler's joint audio+video `LATENT` output feeds directly into both `VAEDecode` (video, `minimax_h3_video_vae_fp16`) and `VAEDecodeAudio` (audio, `minimax_h3_audio_vae_fp32`); each decode node automatically pulls its own half out of the packed latent. `CreateVideo` then muxes the two into a single MP4 with synced sound\n- The diffusion model here is `minimax_h3_ref2va_pruned_int8_convrot.safetensors`, a different set of weights from the `fl2va` model used by the t2v/i2v templates\n\nRef2va's output is very sensitive to prompt wording; matching the reference tags precisely and being explicit about which reference drives which part of the shot tends to work best."
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 155,
+      "type": "MarkdownNote",
+      "pos": [
+        -3980,
+        570
+      ],
+      "size": [
+        720,
+        300
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "00 商业版 9图 + 3视频/音频规范",
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "## MiniMax H3 Commercial — 9 pictures + 3 videos/audio\n- Official hard limit: 9 pictures + 3 temporal media, 12 reference files total.\n- Normalize all reference videos to CFR 24 FPS; each video/audio is 2-15 seconds.\n- The validator generates explicit <Picture>/<Video>/<Audio> role tags and blocks invalid batches.\n- Output duration is aligned automatically to H3's 17k+5 frame grid.\n- Commercial QC checks 24 FPS, resolution multiple-of-32, duration, stereo 32 kHz audio and AV sync.\n- Sampling baseline learned from the reviewed production workflow: res_multistep + simple, 20 steps.\n- Export is MP4/H.264 with date-based folders. Use licensed source images, voices, music and brand assets.\n- RTX 3050 8GB is an editor/controller only; deploy inference to a high-memory H3 worker."
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 176,
+      "type": "BasicScheduler",
+      "pos": [
+        -420,
+        150
+      ],
+      "size": [
+        370,
+        130
+      ],
+      "flags": {},
+      "order": 77,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 571
+        },
+        {
+          "label": "scheduler",
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "label": "steps",
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "label": "denoise",
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SIGMAS",
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            345
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "BasicScheduler",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "beta",
+        8,
+        1
+      ]
+    },
+    {
+      "id": 174,
+      "type": "BasicGuider",
+      "pos": [
+        -410,
+        360
+      ],
+      "size": [
+        360,
+        60
+      ],
+      "flags": {},
+      "order": 92,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 572
+        },
+        {
+          "label": "conditioning",
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 349
+        }
+      ],
+      "outputs": [
+        {
+          "label": "GUIDER",
+          "name": "GUIDER",
+          "type": "GUIDER",
+          "links": [
+            343
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "BasicGuider",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 159,
+      "type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+      "pos": [
+        -2990,
+        670
+      ],
+      "size": [
+        330,
+        50
+      ],
+      "flags": {},
+      "order": 55,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "link": 322
+        }
+      ],
+      "outputs": [
+        {
+          "label": "model",
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            561
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "8692bc8ef8beaaeee80fd52ba80477dc9e61547b",
+        "Node name for S&R": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 136,
+      "type": "MiniMaxH3ReferenceToVideo",
+      "pos": [
+        -910,
+        -210
+      ],
+      "size": [
+        450,
+        570
+      ],
+      "flags": {},
+      "order": 91,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 272
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 273
+        },
+        {
+          "name": "audio_vae",
+          "type": "VAE",
+          "link": 274
+        },
+        {
+          "label": "ref_image_0",
+          "name": "ref_images.ref_image_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 278
+        },
+        {
+          "label": "ref_image_1",
+          "name": "ref_images.ref_image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 282
+        },
+        {
+          "label": "ref_image_2",
+          "name": "ref_images.ref_image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 283
+        },
+        {
+          "label": "ref_image_3",
+          "name": "ref_images.ref_image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 284
+        },
+        {
+          "label": "ref_image_4",
+          "name": "ref_images.ref_image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 285
+        },
+        {
+          "label": "ref_image_5",
+          "name": "ref_images.ref_image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 286
+        },
+        {
+          "label": "ref_image_6",
+          "name": "ref_images.ref_image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "label": "ref_video_0",
+          "name": "ref_videos.ref_video_0",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 531
+        },
+        {
+          "label": "ref_video_1",
+          "name": "ref_videos.ref_video_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 533
+        },
+        {
+          "label": "ref_video_2",
+          "name": "ref_videos.ref_video_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 538
+        },
+        {
+          "label": "ref_video_audio_0",
+          "name": "ref_video_audios.ref_video_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 548
+        },
+        {
+          "label": "ref_video_audio_1",
+          "name": "ref_video_audios.ref_video_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 550
+        },
+        {
+          "label": "ref_video_audio_2",
+          "name": "ref_video_audios.ref_video_audio_2",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 552
+        },
+        {
+          "label": "ref_audio_0",
+          "name": "ref_audios.ref_audio_0",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 333
+        },
+        {
+          "label": "ref_audio_1",
+          "name": "ref_audios.ref_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 334
+        },
+        {
+          "label": "ref_audio_2",
+          "name": "ref_audios.ref_audio_2",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 335
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 314
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 276
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 277
+        },
+        {
+          "name": "length",
+          "type": "INT",
+          "widget": {
+            "name": "length"
+          },
+          "link": 316
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            349
+          ]
+        },
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            348
+          ]
+        }
+      ],
+      "title": "03 MiniMax H3 Reference to Video / 低显存 match 模式",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "MiniMaxH3ReferenceToVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "prompt": true,
+            "width": true,
+            "height": true,
+            "length": true,
+            "ref_image_size": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        1344,
+        768,
+        124,
+        "match"
+      ]
+    },
+    {
+      "id": 199,
+      "type": "CR Text Concatenate",
+      "pos": [
+        -2250,
+        220
+      ],
+      "size": [
+        500,
+        170
+      ],
+      "flags": {},
+      "order": 73,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "文本1",
+          "name": "text1",
+          "shape": 7,
+          "type": "STRING",
+          "link": 388
+        },
+        {
+          "label": "文本2",
+          "name": "text2",
+          "shape": 7,
+          "type": "STRING",
+          "link": 371
+        }
+      ],
+      "outputs": [
+        {
+          "label": "字符串",
+          "name": "STRING",
+          "type": "*",
+          "links": [
+            484
+          ]
+        },
+        {
+          "label": "显示帮助",
+          "name": "show_help",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "触发词 + 当前分段提示词",
+      "properties": {
+        "cnr_id": "ComfyUI_Comfyroll_CustomNodes",
+        "ver": "d78b780ae43fcf8c6b7c6505e6ffb4584281ceca",
+        "Node name for S&R": "CR Text Concatenate",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        ", "
+      ]
+    },
+    {
+      "id": 130,
+      "type": "CreateVideo",
+      "pos": [
+        750,
+        -270
+      ],
+      "size": [
+        400,
+        110
+      ],
+      "flags": {},
+      "order": 96,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 258
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 259
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            260
+          ]
+        }
+      ],
+      "title": "04 Create 24fps Video",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "CreateVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "fps": true,
+            "bit_depth": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        24,
+        8
+      ]
+    },
+    {
+      "id": 92,
+      "type": "SaveVideo",
+      "pos": [
+        1190,
+        -240
+      ],
+      "size": [
+        670,
+        130
+      ],
+      "flags": {},
+      "order": 98,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 260
+        }
+      ],
+      "outputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "links": null
+        }
+      ],
+      "title": "04 Save MP4 / H.264",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "SaveVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "filename_prefix": true,
+            "format": true,
+            "codec": true,
+            "codec.encoding": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "video/MiniMax_H3/%date:yyyy-MM-dd%/MiniMax_H3_Commercial",
+        "mp4",
+        "h264",
+        "auto"
+      ]
+    },
+    {
+      "id": 154,
+      "type": "MiniMaxH3ReferenceValidatorCommercial",
+      "pos": [
+        -1650,
+        -280
+      ],
+      "size": [
+        650,
+        760
+      ],
+      "flags": {},
+      "order": 90,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 299
+        },
+        {
+          "name": "image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 300
+        },
+        {
+          "name": "image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 301
+        },
+        {
+          "name": "image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 302
+        },
+        {
+          "name": "image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 303
+        },
+        {
+          "name": "image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 304
+        },
+        {
+          "name": "image_7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "video_1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 532
+        },
+        {
+          "name": "video_audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 549
+        },
+        {
+          "name": "audio_1",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 330
+        },
+        {
+          "name": "video_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 534
+        },
+        {
+          "name": "video_audio_2",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 551
+        },
+        {
+          "name": "audio_2",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 331
+        },
+        {
+          "name": "video_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 539
+        },
+        {
+          "name": "video_audio_3",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 553
+        },
+        {
+          "name": "audio_3",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 332
+        },
+        {
+          "name": "brief",
+          "type": "STRING",
+          "widget": {
+            "name": "brief"
+          },
+          "link": 485
+        },
+        {
+          "name": "output_duration_seconds",
+          "type": "FLOAT",
+          "widget": {
+            "name": "output_duration_seconds"
+          },
+          "link": 317
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt_template",
+          "type": "STRING",
+          "links": [
+            314
+          ]
+        },
+        {
+          "name": "manifest_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "validation_report",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "image_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "time_media_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "valid",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "title": "02 Commercial Validator - 9 Pictures / Optional Temporal Media",
+      "properties": {
+        "Node name for S&R": "MiniMaxH3ReferenceValidatorCommercial",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "brief": true,
+            "output_duration_seconds": true,
+            "media_1_type": true,
+            "media_2_type": true,
+            "media_3_type": true,
+            "video_1_fps": true,
+            "video_2_fps": true,
+            "video_3_fps": true,
+            "strict_total_temporal": true,
+            "fail_on_warning": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "subject_definitions:\n<Subject 1> is the young East Asian woman in <Picture 1>, with shoulder-length damp black hair, sharp restrained facial features, wearing an ankle-length black wool overcoat, dark grey knit sweater, black straight-leg trousers, and black leather block-heel shoes.\n<Subject 2> is the weathered vintage hallway scene from <Picture 2>, featuring cracked beige plaster walls, a dark solid-wood sideboard holding a dark vase of white chrysanthemums, a framed old photograph, and a small wooden box, lit by a flickering brass wall sconce.\n<Picture 1> is the character reference asset defining <Subject 1>'s appearance, costume, and proportional consistency with Clip 1.\n<Picture 2> is the environment reference asset defining the sideboard area composition, texture, and warm dim lighting base.\n\nsummary:\n[reference generation] The target 15-second clip continues from Clip 1: <Subject 1> walks slowly toward the sideboard in <Subject 2>, stops to gaze at the old framed photograph, and whispers a quiet line with breathy, exhausted delivery. Micro-expressions of sorrow and remembrance, gently swaying coat fabric, and continuously flickering wall lamp light are emphasized for cinematic realism.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 3], [Shot 4]): fully_preserved - her appearance, costume, and damp hair state are fully preserved from Clip 1, with added subtle hand movements and vocal performance.\n<Subject 2> (appears throughout): fully_preserved - the sideboard, wall lamp, wall texture, and doorway background are fully retained, with ongoing rain and light-flicker dynamics.\n<Picture 1> (character reference): fully_preserved - facial and bodily fidelity is maintained across all angles and actions.\n<Picture 2> (environment reference): partially_preserved - the sideboard foreground is fully retained; the distant doorway remains visible in the background with continued rain animation.\n\ndetailed_description:\nContinued cinematic neo-noir aesthetic, 2.39:1 widescreen, natural 35mm film grain, warm amber key light with cool blue rim light from the back doorway.\n[Shot 3] A medium tracking shot follows <Subject 1> from behind and slightly to her right as she walks slowly toward the wooden sideboard. Her long black coat sways gently with each step; the faint wind from the doorway brushes the back of her hair, lifting a few strands. The brass wall sconce continues to flicker softly, casting moving streaks of light along the wall beside her. Her footsteps make soft, muted sounds on the worn wooden floor. As she approaches the sideboard, her pace slows, and her right hand lifts slightly as if about to reach out toward the frame, then hesitates and falls back to her side.\n[Shot 4] At 00:22.000, the shot cuts to a close-up profile of <Subject 1> standing before the sideboard, her gaze fixed on the framed old photograph. Her eyes soften gradually, the tension in her jaw releasing into a faint, weary sadness. Her nostrils flare slightly with a quiet inhale; her lower lip trembles almost imperceptibly before she speaks. <Subject 1> (S1) speaks in a low, breathy whisper, <d>[Chinese] (soft exhale) ... </d> After the line, she closes her eyes for half a second, a single tear welling at her lash line but not falling. The hem of her coat sways once more from a passing draft; the wall lamp flickers once more strongly, dimming briefly before brightening again.\n\noverall_soundscape:\nSustained soft rain ambience from the courtyard, faint wind, muted footsteps on wood, quiet breath intake and release, and the low electrical hum of the flickering wall sconce.\n\nnon_diegetic_music:\nThe low cello drone continues, now joined by a single soft piano note held at long intervals, mixed very low to enhance emotional weight without overpowering ambience.",
+        5,
+        "auto",
+        "auto",
+        "auto",
+        30,
+        30,
+        30,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 173,
+      "type": "RandomNoise",
+      "pos": [
+        -400,
+        -230
+      ],
+      "size": [
+        360,
+        90
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "noise_seed",
+          "name": "noise_seed",
+          "type": "INT",
+          "widget": {
+            "name": "noise_seed"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "NOISE",
+          "name": "NOISE",
+          "type": "NOISE",
+          "links": [
+            342
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "RandomNoise",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        547480197095339,
+        "fixed"
+      ]
+    },
+    {
+      "id": 220,
+      "type": "LoadVideo",
+      "pos": [
+        -1680,
+        2000
+      ],
+      "size": [
+        300,
+        250
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            450
+          ]
+        }
+      ],
+      "title": "S02 动作参考视频 / 仅本段启用时加载",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "参考1.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 221,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1320,
+        2000
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 450
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            576
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            465
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "S02 动作帧 + 音频",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 223,
+      "type": "H3ActionSegmentConfig",
+      "pos": [
+        -540,
+        2000
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 497
+        }
+      ],
+      "outputs": [
+        {
+          "name": "config",
+          "type": "H3_ACTION_CONFIG",
+          "links": [
+            463
+          ]
+        }
+      ],
+      "title": "S02 动作迁移 JSON / 60%模仿 + 资产优先 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3ActionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S02",
+        false,
+        "{\r\n  \"instruction\": \"以参考视频为表演灵感，只迁移约60%的身体动作、手势、头部与表情节奏；不要完美复刻，不要逐帧照搬，不迁移参考人物身份、外观、背景或叠加层。\",\r\n  \"reference_scope\": \"当前生成分段为 S02，参考视频只提供中等强度动作与表情模仿；资产库角色、场景、道具和当前分镜拥有最高优先级。\",\r\n  \"timing\": \"参考动作的大致起止、停顿、加速、减速和重心变化，允许根据目标角色与场景自然重演；不要严格逐帧同步。\",\r\n  \"body_motion\": \"中等强度模仿躯干朝向、肩胯关系、重心变化和身体倾斜幅度，保留目标角色自己的动作自然性。\",\r\n  \"hand_motion\": \"中等强度模仿双臂轨迹、手腕方向、手掌姿态和手指开合；不要复制参考视频的具体手部位置到像素级。\",\r\n  \"head_motion\": \"中等强度模仿抬头、低头、点头、摇头、转头和停顿，与目标角色表演自然同步。\",\r\n  \"gaze\": \"参考视线方向和停留节奏，但视线目标必须服从当前分镜与资产库场景。\",\r\n  \"facial_performance\": \"模仿约60%的表情强弱、呼吸、眼神和嘴型节奏；面部身份、脸型、发型和妆容必须来自资产库角色。\",\r\n  \"frame_alignment\": \"只参考动作趋势和节奏，不要求逐帧一致；避免动作变成原视频复刻。\",\r\n  \"preserve\": \"严格保持资产库角色、脸型、年龄、发型、服装、场景、道具、镜头构图、光照和画面风格一致。\",\r\n  \"identity_lock\": \"参考视频中的人物只提供动作和表演轨迹，不复制其身份、脸部、身材、服装或材质。\",\r\n  \"scene_lock\": \"不得把参考视频的背景、地面、墙面、灯光、机位或镜头语言迁移到目标画面。\",\r\n  \"prop_lock\": \"道具和角色与道具的接触关系以资产库和当前分镜为准，不复制参考视频中的道具。\",\r\n  \"avoid\": \"避免完美复刻参考视频、叠加层、可读符号、UI标记、动作漂移、动作跳帧、幅度过大、脚底滑动、关节扭曲、手指融合、重复肢体和身体穿模。\",\r\n  \"do_not_copy\": \"不要复制参考人物、背景、服装、道具、声音、摄影机、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": 224,
+      "type": "LoadVideo",
+      "pos": [
+        -1680,
+        2630
+      ],
+      "size": [
+        300,
+        250
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            452
+          ]
+        }
+      ],
+      "title": "S03 动作参考视频 / 仅本段启用时加载",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "参考1.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 225,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1320,
+        2630
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 452
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            578
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            469
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "S03 动作帧 + 音频",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 227,
+      "type": "H3ActionSegmentConfig",
+      "pos": [
+        -540,
+        2630
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 499
+        }
+      ],
+      "outputs": [
+        {
+          "name": "config",
+          "type": "H3_ACTION_CONFIG",
+          "links": [
+            467
+          ]
+        }
+      ],
+      "title": "S03 动作迁移 JSON / 60%模仿 + 资产优先 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3ActionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S03",
+        false,
+        "{\r\n  \"instruction\": \"以参考视频为表演灵感，只迁移约60%的身体动作、手势、头部与表情节奏；不要完美复刻，不要逐帧照搬，不迁移参考人物身份、外观、背景或叠加层。\",\r\n  \"reference_scope\": \"当前生成分段为 S03，参考视频只提供中等强度动作与表情模仿；资产库角色、场景、道具和当前分镜拥有最高优先级。\",\r\n  \"timing\": \"参考动作的大致起止、停顿、加速、减速和重心变化，允许根据目标角色与场景自然重演；不要严格逐帧同步。\",\r\n  \"body_motion\": \"中等强度模仿躯干朝向、肩胯关系、重心变化和身体倾斜幅度，保留目标角色自己的动作自然性。\",\r\n  \"hand_motion\": \"中等强度模仿双臂轨迹、手腕方向、手掌姿态和手指开合；不要复制参考视频的具体手部位置到像素级。\",\r\n  \"head_motion\": \"中等强度模仿抬头、低头、点头、摇头、转头和停顿，与目标角色表演自然同步。\",\r\n  \"gaze\": \"参考视线方向和停留节奏，但视线目标必须服从当前分镜与资产库场景。\",\r\n  \"facial_performance\": \"模仿约60%的表情强弱、呼吸、眼神和嘴型节奏；面部身份、脸型、发型和妆容必须来自资产库角色。\",\r\n  \"frame_alignment\": \"只参考动作趋势和节奏，不要求逐帧一致；避免动作变成原视频复刻。\",\r\n  \"preserve\": \"严格保持资产库角色、脸型、年龄、发型、服装、场景、道具、镜头构图、光照和画面风格一致。\",\r\n  \"identity_lock\": \"参考视频中的人物只提供动作和表演轨迹，不复制其身份、脸部、身材、服装或材质。\",\r\n  \"scene_lock\": \"不得把参考视频的背景、地面、墙面、灯光、机位或镜头语言迁移到目标画面。\",\r\n  \"prop_lock\": \"道具和角色与道具的接触关系以资产库和当前分镜为准，不复制参考视频中的道具。\",\r\n  \"avoid\": \"避免完美复刻参考视频、叠加层、可读符号、UI标记、动作漂移、动作跳帧、幅度过大、脚底滑动、关节扭曲、手指融合、重复肢体和身体穿模。\",\r\n  \"do_not_copy\": \"不要复制参考人物、背景、服装、道具、声音、摄影机、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": 228,
+      "type": "LoadVideo",
+      "pos": [
+        -1680,
+        3260
+      ],
+      "size": [
+        300,
+        250
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            454
+          ]
+        }
+      ],
+      "title": "S04 动作参考视频 / 仅本段启用时加载",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "参考1.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 229,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1320,
+        3260
+      ],
+      "size": [
+        300,
+        180
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 454
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            580
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            473
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "S04 动作帧 + 音频",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 231,
+      "type": "H3ActionSegmentConfig",
+      "pos": [
+        -540,
+        3260
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 501
+        }
+      ],
+      "outputs": [
+        {
+          "name": "config",
+          "type": "H3_ACTION_CONFIG",
+          "links": [
+            471
+          ]
+        }
+      ],
+      "title": "S04 动作迁移 JSON / 60%模仿 + 资产优先 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3ActionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S04",
+        false,
+        "{\r\n  \"instruction\": \"以参考视频为表演灵感，只迁移约60%的身体动作、手势、头部与表情节奏；不要完美复刻，不要逐帧照搬，不迁移参考人物身份、外观、背景或叠加层。\",\r\n  \"reference_scope\": \"当前生成分段为 S04，参考视频只提供中等强度动作与表情模仿；资产库角色、场景、道具和当前分镜拥有最高优先级。\",\r\n  \"timing\": \"参考动作的大致起止、停顿、加速、减速和重心变化，允许根据目标角色与场景自然重演；不要严格逐帧同步。\",\r\n  \"body_motion\": \"中等强度模仿躯干朝向、肩胯关系、重心变化和身体倾斜幅度，保留目标角色自己的动作自然性。\",\r\n  \"hand_motion\": \"中等强度模仿双臂轨迹、手腕方向、手掌姿态和手指开合；不要复制参考视频的具体手部位置到像素级。\",\r\n  \"head_motion\": \"中等强度模仿抬头、低头、点头、摇头、转头和停顿，与目标角色表演自然同步。\",\r\n  \"gaze\": \"参考视线方向和停留节奏，但视线目标必须服从当前分镜与资产库场景。\",\r\n  \"facial_performance\": \"模仿约60%的表情强弱、呼吸、眼神和嘴型节奏；面部身份、脸型、发型和妆容必须来自资产库角色。\",\r\n  \"frame_alignment\": \"只参考动作趋势和节奏，不要求逐帧一致；避免动作变成原视频复刻。\",\r\n  \"preserve\": \"严格保持资产库角色、脸型、年龄、发型、服装、场景、道具、镜头构图、光照和画面风格一致。\",\r\n  \"identity_lock\": \"参考视频中的人物只提供动作和表演轨迹，不复制其身份、脸部、身材、服装或材质。\",\r\n  \"scene_lock\": \"不得把参考视频的背景、地面、墙面、灯光、机位或镜头语言迁移到目标画面。\",\r\n  \"prop_lock\": \"道具和角色与道具的接触关系以资产库和当前分镜为准，不复制参考视频中的道具。\",\r\n  \"avoid\": \"避免完美复刻参考视频、叠加层、可读符号、UI标记、动作漂移、动作跳帧、幅度过大、脚底滑动、关节扭曲、手指融合、重复肢体和身体穿模。\",\r\n  \"do_not_copy\": \"不要复制参考人物、背景、服装、道具、声音、摄影机、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": 232,
+      "type": "H3SegmentActionConfigSelector",
+      "pos": [
+        1480,
+        1400
+      ],
+      "size": [
+        520,
+        280
+      ],
+      "flags": {},
+      "order": 75,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "active_segment",
+          "type": "INT",
+          "link": 456
+        },
+        {
+          "name": "config_s01",
+          "type": "H3_ACTION_CONFIG",
+          "link": 459
+        },
+        {
+          "name": "config_s02",
+          "type": "H3_ACTION_CONFIG",
+          "link": 463
+        },
+        {
+          "name": "config_s03",
+          "type": "H3_ACTION_CONFIG",
+          "link": 467
+        },
+        {
+          "name": "config_s04",
+          "type": "H3_ACTION_CONFIG",
+          "link": 471
+        }
+      ],
+      "outputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": [
+            475,
+            476,
+            477,
+            519,
+            537,
+            540,
+            557
+          ]
+        },
+        {
+          "name": "action_prompt",
+          "type": "STRING",
+          "links": [
+            480
+          ]
+        },
+        {
+          "name": "body_strength",
+          "type": "FLOAT",
+          "links": [
+            481
+          ]
+        },
+        {
+          "name": "arms_strength",
+          "type": "FLOAT",
+          "links": [
+            482
+          ]
+        },
+        {
+          "name": "hands_strength",
+          "type": "FLOAT",
+          "links": [
+            565
+          ]
+        },
+        {
+          "name": "legs_strength",
+          "type": "FLOAT",
+          "links": [
+            483
+          ]
+        },
+        {
+          "name": "head_strength",
+          "type": "FLOAT",
+          "links": [
+            566
+          ]
+        },
+        {
+          "name": "transfer_strength",
+          "type": "FLOAT",
+          "links": [
+            564
+          ]
+        },
+        {
+          "name": "active_segment_id",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "当前 S01-S04 动作配置自动选择",
+      "properties": {
+        "Node name for S&R": "H3SegmentActionConfigSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 233,
+      "type": "H3SegmentActionMediaSelector",
+      "pos": [
+        1480,
+        2140
+      ],
+      "size": [
+        540,
+        430
+      ],
+      "flags": {},
+      "order": 79,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "active_segment",
+          "type": "INT",
+          "link": 457
+        },
+        {
+          "name": "action_enabled",
+          "type": "BOOLEAN",
+          "link": 475
+        },
+        {
+          "name": "image_s01",
+          "type": "IMAGE",
+          "link": 460
+        },
+        {
+          "name": "audio_s01",
+          "type": "AUDIO",
+          "link": 461
+        },
+        {
+          "name": "image_s02",
+          "type": "IMAGE",
+          "link": 464
+        },
+        {
+          "name": "audio_s02",
+          "type": "AUDIO",
+          "link": 465
+        },
+        {
+          "name": "image_s03",
+          "type": "IMAGE",
+          "link": 468
+        },
+        {
+          "name": "audio_s03",
+          "type": "AUDIO",
+          "link": 469
+        },
+        {
+          "name": "image_s04",
+          "type": "IMAGE",
+          "link": 472
+        },
+        {
+          "name": "audio_s04",
+          "type": "AUDIO",
+          "link": 473
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selected_action_frames",
+          "type": "IMAGE",
+          "links": [
+            558
+          ]
+        },
+        {
+          "name": "selected_action_audio",
+          "type": "AUDIO",
+          "links": null
+        }
+      ],
+      "title": "Current segment POSE action frames (lazy, no source identity/background)",
+      "properties": {
+        "Node name for S&R": "H3SegmentActionMediaSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 236,
+      "type": "H3ActionReferencePrompt",
+      "pos": [
+        1480,
+        1770
+      ],
+      "size": [
+        520,
+        330
+      ],
+      "flags": {},
+      "order": 82,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 484
+        },
+        {
+          "name": "transfer_strength",
+          "type": "FLOAT",
+          "link": 564
+        },
+        {
+          "name": "action_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": 480
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 477
+        },
+        {
+          "name": "body_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "body_strength"
+          },
+          "link": 481
+        },
+        {
+          "name": "arms_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "arms_strength"
+          },
+          "link": 482
+        },
+        {
+          "name": "hands_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "hands_strength"
+          },
+          "link": 565
+        },
+        {
+          "name": "legs_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "legs_strength"
+          },
+          "link": 483
+        },
+        {
+          "name": "head_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "head_strength"
+          },
+          "link": 566
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            515
+          ]
+        }
+      ],
+      "title": "当前分段动作提示注入 H3 <Video 1>",
+      "properties": {
+        "Node name for S&R": "H3ActionReferencePrompt",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true,
+            "body_strength": true,
+            "arms_strength": true,
+            "legs_strength": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false,
+        0.65,
+        0.7,
+        0.7,
+        0.7,
+        0.9
+      ]
+    },
+    {
+      "id": 237,
+      "type": "LazySwitchKJ",
+      "pos": [
+        2640,
+        1770
+      ],
+      "size": [
+        480,
+        160
+      ],
+      "flags": {},
+      "order": 89,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "*",
+          "link": 585
+        },
+        {
+          "name": "on_true",
+          "type": "*",
+          "link": 536
+        },
+        {
+          "name": "switch",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "switch"
+          },
+          "link": 537
+        }
+      ],
+      "outputs": [
+        {
+          "name": "*",
+          "type": "*",
+          "links": [
+            538,
+            539
+          ]
+        }
+      ],
+      "title": "Video 3 slot: ordinary reference or action pose (exclusive)",
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "dcfcb5dc9bad14912272cedd351cbb377bd27a22",
+        "Node name for S&R": "LazySwitchKJ",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "switch": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 241,
+      "type": "H3ActionCaptureSwitch",
+      "pos": [
+        -1940,
+        2000
+      ],
+      "size": [
+        210,
+        120
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "capture_enabled",
+          "type": "BOOLEAN",
+          "links": [
+            497,
+            498
+          ]
+        }
+      ],
+      "title": "S02 动作+表情捕捉总开关",
+      "properties": {
+        "Node name for S&R": "H3ActionCaptureSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 245,
+      "type": "H3FaceExpressionSegmentConfig",
+      "pos": [
+        160,
+        2000
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 498
+        }
+      ],
+      "outputs": [
+        {
+          "name": "face_config",
+          "type": "H3_FACE_CONFIG",
+          "links": [
+            509
+          ]
+        }
+      ],
+      "title": "S02 表情迁移 JSON / 60%模仿 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S02",
+        false,
+        "{\r\n  \"expression\": \"模仿参考视频约60%的眉毛、眼睑、眼神、嘴型、下颌和情绪节奏；不要完美复刻参考人物表情。\",\r\n  \"head_motion\": \"中等强度参考抬头、低头、点头、摇头、转头、脸部朝向和停顿。\",\r\n  \"gaze\": \"参考视线方向和视线转移节奏，但视线目标服从当前分镜，不复制参考人物身份。\",\r\n  \"mouth_motion\": \"参考嘴唇开合、嘴角变化、下颌运动和呼吸节奏；不要在画面中生成任何对白相关可读符号或叠加层。\",\r\n  \"timing\": \"当前分段为 S02，只参考表情变化趋势和节奏，不要求逐帧一致。\",\r\n  \"expression_strength\": \"中等强度保留微表情、情绪转折、眨眼和短暂停顿，避免静止脸或过度夸张。\",\r\n  \"preserve\": \"严格保持资产库角色的脸型、身份、年龄、发型、妆容、服装、场景、道具、光照和镜头构图。\",\r\n  \"identity_lock\": \"参考视频只提供表情、头部和视线运动，不复制参考人物的脸、五官比例、肤色或外观。\",\r\n  \"scene_lock\": \"不得迁移参考视频的背景、场景、镜头、光照或摄影机运动。\",\r\n  \"avoid\": \"避免叠加层、UI标记、水印、可读符号、眼神漂移、眼睛失焦、嘴型错位、表情跳变、面部冻结、五官变形、重复嘴唇、额外眼睛和表情与动作不同步。\",\r\n  \"do_not_copy\": \"不要复制参考人物的身份、脸型、发型、服装、场景、道具、声音、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.45
+      ]
+    },
+    {
+      "id": 242,
+      "type": "H3ActionCaptureSwitch",
+      "pos": [
+        -1940,
+        2630
+      ],
+      "size": [
+        210,
+        120
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "capture_enabled",
+          "type": "BOOLEAN",
+          "links": [
+            499,
+            500
+          ]
+        }
+      ],
+      "title": "S03 动作+表情捕捉总开关",
+      "properties": {
+        "Node name for S&R": "H3ActionCaptureSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 246,
+      "type": "H3FaceExpressionSegmentConfig",
+      "pos": [
+        160,
+        2630
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 500
+        }
+      ],
+      "outputs": [
+        {
+          "name": "face_config",
+          "type": "H3_FACE_CONFIG",
+          "links": [
+            510
+          ]
+        }
+      ],
+      "title": "S03 表情迁移 JSON / 60%模仿 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S03",
+        false,
+        "{\r\n  \"expression\": \"模仿参考视频约60%的眉毛、眼睑、眼神、嘴型、下颌和情绪节奏；不要完美复刻参考人物表情。\",\r\n  \"head_motion\": \"中等强度参考抬头、低头、点头、摇头、转头、脸部朝向和停顿。\",\r\n  \"gaze\": \"参考视线方向和视线转移节奏，但视线目标服从当前分镜，不复制参考人物身份。\",\r\n  \"mouth_motion\": \"参考嘴唇开合、嘴角变化、下颌运动和呼吸节奏；不要在画面中生成任何对白相关可读符号或叠加层。\",\r\n  \"timing\": \"当前分段为 S03，只参考表情变化趋势和节奏，不要求逐帧一致。\",\r\n  \"expression_strength\": \"中等强度保留微表情、情绪转折、眨眼和短暂停顿，避免静止脸或过度夸张。\",\r\n  \"preserve\": \"严格保持资产库角色的脸型、身份、年龄、发型、妆容、服装、场景、道具、光照和镜头构图。\",\r\n  \"identity_lock\": \"参考视频只提供表情、头部和视线运动，不复制参考人物的脸、五官比例、肤色或外观。\",\r\n  \"scene_lock\": \"不得迁移参考视频的背景、场景、镜头、光照或摄影机运动。\",\r\n  \"avoid\": \"避免叠加层、UI标记、水印、可读符号、眼神漂移、眼睛失焦、嘴型错位、表情跳变、面部冻结、五官变形、重复嘴唇、额外眼睛和表情与动作不同步。\",\r\n  \"do_not_copy\": \"不要复制参考人物的身份、脸型、发型、服装、场景、道具、声音、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.45
+      ]
+    },
+    {
+      "id": 243,
+      "type": "H3ActionCaptureSwitch",
+      "pos": [
+        -1940,
+        3260
+      ],
+      "size": [
+        210,
+        120
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "capture_enabled",
+          "type": "BOOLEAN",
+          "links": [
+            501,
+            502
+          ]
+        }
+      ],
+      "title": "S04 动作+表情捕捉总开关",
+      "properties": {
+        "Node name for S&R": "H3ActionCaptureSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 247,
+      "type": "H3FaceExpressionSegmentConfig",
+      "pos": [
+        160,
+        3260
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 502
+        }
+      ],
+      "outputs": [
+        {
+          "name": "face_config",
+          "type": "H3_FACE_CONFIG",
+          "links": [
+            511
+          ]
+        }
+      ],
+      "title": "S04 表情迁移 JSON / 60%模仿 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S04",
+        false,
+        "{\r\n  \"expression\": \"模仿参考视频约60%的眉毛、眼睑、眼神、嘴型、下颌和情绪节奏；不要完美复刻参考人物表情。\",\r\n  \"head_motion\": \"中等强度参考抬头、低头、点头、摇头、转头、脸部朝向和停顿。\",\r\n  \"gaze\": \"参考视线方向和视线转移节奏，但视线目标服从当前分镜，不复制参考人物身份。\",\r\n  \"mouth_motion\": \"参考嘴唇开合、嘴角变化、下颌运动和呼吸节奏；不要在画面中生成任何对白相关可读符号或叠加层。\",\r\n  \"timing\": \"当前分段为 S04，只参考表情变化趋势和节奏，不要求逐帧一致。\",\r\n  \"expression_strength\": \"中等强度保留微表情、情绪转折、眨眼和短暂停顿，避免静止脸或过度夸张。\",\r\n  \"preserve\": \"严格保持资产库角色的脸型、身份、年龄、发型、妆容、服装、场景、道具、光照和镜头构图。\",\r\n  \"identity_lock\": \"参考视频只提供表情、头部和视线运动，不复制参考人物的脸、五官比例、肤色或外观。\",\r\n  \"scene_lock\": \"不得迁移参考视频的背景、场景、镜头、光照或摄影机运动。\",\r\n  \"avoid\": \"避免叠加层、UI标记、水印、可读符号、眼神漂移、眼睛失焦、嘴型错位、表情跳变、面部冻结、五官变形、重复嘴唇、额外眼睛和表情与动作不同步。\",\r\n  \"do_not_copy\": \"不要复制参考人物的身份、脸型、发型、服装、场景、道具、声音、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.45
+      ]
+    },
+    {
+      "id": 248,
+      "type": "H3FaceExpressionConfigSelector",
+      "pos": [
+        2060,
+        1400
+      ],
+      "size": [
+        520,
+        280
+      ],
+      "flags": {},
+      "order": 76,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "active_segment",
+          "type": "INT",
+          "link": 507
+        },
+        {
+          "name": "face_s01",
+          "type": "H3_FACE_CONFIG",
+          "link": 508
+        },
+        {
+          "name": "face_s02",
+          "type": "H3_FACE_CONFIG",
+          "link": 509
+        },
+        {
+          "name": "face_s03",
+          "type": "H3_FACE_CONFIG",
+          "link": 510
+        },
+        {
+          "name": "face_s04",
+          "type": "H3_FACE_CONFIG",
+          "link": 511
+        }
+      ],
+      "outputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": [
+            512
+          ]
+        },
+        {
+          "name": "face_prompt",
+          "type": "STRING",
+          "links": [
+            513
+          ]
+        },
+        {
+          "name": "expression_strength",
+          "type": "FLOAT",
+          "links": [
+            514
+          ]
+        },
+        {
+          "name": "head_strength",
+          "type": "FLOAT",
+          "links": [
+            567
+          ]
+        },
+        {
+          "name": "gaze_strength",
+          "type": "FLOAT",
+          "links": [
+            568
+          ]
+        },
+        {
+          "name": "mouth_strength",
+          "type": "FLOAT",
+          "links": [
+            569
+          ]
+        },
+        {
+          "name": "transfer_strength",
+          "type": "FLOAT",
+          "links": [
+            570
+          ]
+        },
+        {
+          "name": "active_segment_id",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "当前 S01-S04 面部表情配置自动选择",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionConfigSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 249,
+      "type": "H3FaceExpressionPrompt",
+      "pos": [
+        2060,
+        1770
+      ],
+      "size": [
+        520,
+        330
+      ],
+      "flags": {},
+      "order": 86,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 515
+        },
+        {
+          "name": "head_strength",
+          "type": "FLOAT",
+          "link": 567
+        },
+        {
+          "name": "gaze_strength",
+          "type": "FLOAT",
+          "link": 568
+        },
+        {
+          "name": "mouth_strength",
+          "type": "FLOAT",
+          "link": 569
+        },
+        {
+          "name": "transfer_strength",
+          "type": "FLOAT",
+          "link": 570
+        },
+        {
+          "name": "face_prompt",
+          "shape": 7,
+          "type": "STRING",
+          "link": 513
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 512
+        },
+        {
+          "name": "expression_strength",
+          "type": "FLOAT",
+          "widget": {
+            "name": "expression_strength"
+          },
+          "link": 514
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            516
+          ]
+        }
+      ],
+      "title": "当前分段面部动作与表情提示注入 H3 M1",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionPrompt",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true,
+            "expression_strength": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false,
+        0.7
+      ]
+    },
+    {
+      "id": 263,
+      "type": "H3ReferenceImageSwitch",
+      "pos": [
+        2640,
+        1400
+      ],
+      "size": [
+        490,
+        150
+      ],
+      "flags": {},
+      "order": 87,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 559
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 540
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            536
+          ]
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": null
+        }
+      ],
+      "title": "Action reference: synchronized DWPose keypoint frames only",
+      "properties": {
+        "Node name for S&R": "H3ReferenceImageSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 264,
+      "type": "H3ReferenceAudioSwitch",
+      "pos": [
+        -820,
+        650
+      ],
+      "size": [
+        330,
+        140
+      ],
+      "flags": {},
+      "order": 65,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 542
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 545
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            548,
+            549
+          ]
+        }
+      ],
+      "title": "Ordinary Video 1 paired audio",
+      "properties": {
+        "Node name for S&R": "H3ReferenceAudioSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 265,
+      "type": "H3ReferenceAudioSwitch",
+      "pos": [
+        -820,
+        890
+      ],
+      "size": [
+        330,
+        140
+      ],
+      "flags": {},
+      "order": 62,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 543
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 546
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            550,
+            551
+          ]
+        }
+      ],
+      "title": "Ordinary Video 2 paired audio",
+      "properties": {
+        "Node name for S&R": "H3ReferenceAudioSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 258,
+      "type": "H3SegmentDurationSelector",
+      "pos": [
+        -2260,
+        -570
+      ],
+      "size": [
+        360,
+        170
+      ],
+      "flags": {},
+      "order": 74,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "auto_duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "auto_duration"
+          },
+          "link": 525
+        },
+        {
+          "name": "manual_duration",
+          "type": "FLOAT",
+          "widget": {
+            "name": "manual_duration"
+          },
+          "link": 527
+        }
+      ],
+      "outputs": [
+        {
+          "name": "duration_seconds",
+          "type": "FLOAT",
+          "links": [
+            526
+          ]
+        },
+        {
+          "name": "status",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "当前片段时长 / 自动或手动",
+      "properties": {
+        "Node name for S&R": "H3SegmentDurationSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "mode": true,
+            "manual_duration": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "segment_auto",
+        "manual",
+        15
+      ],
+      "color": "#263b2d",
+      "bgcolor": "#3d5c45"
+    },
+    {
+      "id": 140,
+      "type": "MarkdownNote",
+      "pos": [
+        -1940,
+        -290
+      ],
+      "size": [
+        270,
+        370
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "00 分辨率参考",
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "| megapixels | Aspect | Output (multiple=32) |\n|---|---|---|\n| 0.2 | 16:9 | 608 x 352 |\n| 0.3 | 16:9 | 736 x 416 |\n| 0.4 | 16:9 | 864 x 480 |\n| 0.5 | 16:9 | 960 x 544 |\n| 0.6 | 16:9 | 1056 x 608 |\n| 0.7 | 16:9 | 1152 x 640 |\n| 0.8 | 16:9 | 1216 x 672 |\n| 0.9 | 16:9 | 1280 x 736 |\n| 0.98 | 16:9 | 1344 x 768 |\n| 1.0 | 16:9 | 1376 x 768 |\n| 1.2 | 16:9 | 1504 x 832 |\n| 1.5 | 16:9 | 1664 x 928 |\n| 1.8 | 16:9 | 1824 x 1024 |\n| 2.0 | 16:9 | 1920 x 1088 |\n"
+      ],
+      "color": "#222",
+      "bgcolor": "#000"
+    },
+    {
+      "id": 115,
+      "type": "ResolutionSelector",
+      "pos": [
+        -2270,
+        -280
+      ],
+      "size": [
+        300,
+        170
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "showAdvanced": false,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            276
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            277
+          ]
+        }
+      ],
+      "title": "02 Output Resolution",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "ResolutionSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "aspect_ratio": true,
+            "megapixels": true,
+            "multiple": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "16:9 (Widescreen)",
+        0.4,
+        32
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 151,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1590,
+        890
+      ],
+      "size": [
+        280,
+        160
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 293
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            529
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            543
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "06 Video 2 — Frames + Audio",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 153,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1590,
+        1130
+      ],
+      "size": [
+        280,
+        160
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 296
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            584
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            544
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "06 Video 3 — Frames + Audio",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 175,
+      "type": "KSamplerSelect",
+      "pos": [
+        -410,
+        -20
+      ],
+      "size": [
+        370,
+        70
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "sampler_name",
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "label": "SAMPLER",
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            344
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "KSamplerSelect",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "euler"
+      ]
+    },
+    {
+      "id": 267,
+      "type": "H3ActionFrameSynchronizer",
+      "pos": [
+        2760,
+        2230
+      ],
+      "size": [
+        430,
+        160
+      ],
+      "flags": {},
+      "order": 83,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "action_frames",
+          "type": "IMAGE",
+          "link": 558
+        },
+        {
+          "name": "target_frames",
+          "type": "INT",
+          "link": 560
+        }
+      ],
+      "outputs": [
+        {
+          "name": "synchronized_action_frames",
+          "type": "IMAGE",
+          "links": [
+            559
+          ]
+        }
+      ],
+      "title": "动作参考同步：DWPose关键点时序 + 384px短边",
+      "properties": {
+        "Node name for S&R": "H3ActionFrameSynchronizer",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        384
+      ]
+    },
+    {
+      "id": 226,
+      "type": "DWPreprocessor",
+      "pos": [
+        -960,
+        2630
+      ],
+      "size": [
+        460,
+        230
+      ],
+      "flags": {},
+      "order": 59,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 579
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            470,
+            468
+          ]
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            505
+          ]
+        }
+      ],
+      "title": "S03 DWPose motion-control source / 身体·手部·腿部·面部关键点",
+      "properties": {
+        "cnr_id": "comfyui_controlnet_aux",
+        "ver": "12f35647f0d510e03b45a47fb420fe1245a575df",
+        "Node name for S&R": "DWPreprocessor",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable",
+        512,
+        "yolox_l.onnx",
+        "dw-ll_ucoco_384_bs5.torchscript.pt",
+        "disable"
+      ]
+    },
+    {
+      "id": 230,
+      "type": "DWPreprocessor",
+      "pos": [
+        -960,
+        3260
+      ],
+      "size": [
+        460,
+        230
+      ],
+      "flags": {},
+      "order": 60,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 581
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            474,
+            472
+          ]
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            506
+          ]
+        }
+      ],
+      "title": "S04 DWPose motion-control source / 身体·手部·腿部·面部关键点",
+      "properties": {
+        "cnr_id": "comfyui_controlnet_aux",
+        "ver": "12f35647f0d510e03b45a47fb420fe1245a575df",
+        "Node name for S&R": "DWPreprocessor",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable",
+        512,
+        "yolox_l.onnx",
+        "dw-ll_ucoco_384_bs5.torchscript.pt",
+        "disable"
+      ]
+    },
+    {
+      "id": 253,
+      "type": "H3SafeFacialPartColoring",
+      "pos": [
+        860,
+        2630
+      ],
+      "size": [
+        500,
+        360
+      ],
+      "flags": {},
+      "order": 68,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pose_kps",
+          "type": "POSE_KEYPOINT",
+          "link": 505
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            522
+          ]
+        }
+      ],
+      "title": "S03 面部表情关键点可视化",
+      "properties": {
+        "Node name for S&R": "H3SafeFacialPartColoring",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "point",
+        "rgb(0, 153, 255)",
+        "rgb(0, 204, 153)",
+        "rgb(255, 153, 0)",
+        "rgb(255, 102, 255)",
+        "rgb(102, 0, 51)",
+        "rgb(255, 204, 255)",
+        "rgb(255, 0, 102)"
+      ]
+    },
+    {
+      "id": 252,
+      "type": "H3SafeFacialPartColoring",
+      "pos": [
+        860,
+        2000
+      ],
+      "size": [
+        500,
+        360
+      ],
+      "flags": {},
+      "order": 67,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pose_kps",
+          "type": "POSE_KEYPOINT",
+          "link": 504
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            521
+          ]
+        }
+      ],
+      "title": "S02 面部表情关键点可视化",
+      "properties": {
+        "Node name for S&R": "H3SafeFacialPartColoring",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "point",
+        "rgb(0, 153, 255)",
+        "rgb(0, 204, 153)",
+        "rgb(255, 153, 0)",
+        "rgb(255, 102, 255)",
+        "rgb(102, 0, 51)",
+        "rgb(255, 204, 255)",
+        "rgb(255, 0, 102)"
+      ]
+    },
+    {
+      "id": 254,
+      "type": "H3SafeFacialPartColoring",
+      "pos": [
+        860,
+        3260
+      ],
+      "size": [
+        500,
+        360
+      ],
+      "flags": {},
+      "order": 69,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pose_kps",
+          "type": "POSE_KEYPOINT",
+          "link": 506
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            523
+          ]
+        }
+      ],
+      "title": "S04 面部表情关键点可视化",
+      "properties": {
+        "Node name for S&R": "H3SafeFacialPartColoring",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "point",
+        "rgb(0, 153, 255)",
+        "rgb(0, 204, 153)",
+        "rgb(255, 153, 0)",
+        "rgb(255, 102, 255)",
+        "rgb(102, 0, 51)",
+        "rgb(255, 204, 255)",
+        "rgb(255, 0, 102)"
+      ]
+    },
+    {
+      "id": 234,
+      "type": "H3SegmentActionImageSelector",
+      "pos": [
+        2090,
+        2140
+      ],
+      "size": [
+        520,
+        300
+      ],
+      "flags": {},
+      "order": 80,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "active_segment",
+          "type": "INT",
+          "link": 458
+        },
+        {
+          "name": "action_enabled",
+          "type": "BOOLEAN",
+          "link": 476
+        },
+        {
+          "name": "pose_s01",
+          "type": "IMAGE",
+          "link": 462
+        },
+        {
+          "name": "pose_s02",
+          "type": "IMAGE",
+          "link": 466
+        },
+        {
+          "name": "pose_s03",
+          "type": "IMAGE",
+          "link": 470
+        },
+        {
+          "name": "pose_s04",
+          "type": "IMAGE",
+          "link": 474
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selected_pose_preview",
+          "type": "IMAGE",
+          "links": [
+            494
+          ]
+        }
+      ],
+      "title": "Optional DWPose preview selector (disabled during render)",
+      "properties": {
+        "Node name for S&R": "H3SegmentActionImageSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 255,
+      "type": "H3SegmentActionImageSelector",
+      "pos": [
+        2090,
+        2660
+      ],
+      "size": [
+        520,
+        300
+      ],
+      "flags": {},
+      "order": 81,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "active_segment",
+          "type": "INT",
+          "link": 518
+        },
+        {
+          "name": "action_enabled",
+          "type": "BOOLEAN",
+          "link": 519
+        },
+        {
+          "name": "pose_s01",
+          "type": "IMAGE",
+          "link": 520
+        },
+        {
+          "name": "pose_s02",
+          "type": "IMAGE",
+          "link": 521
+        },
+        {
+          "name": "pose_s03",
+          "type": "IMAGE",
+          "link": 522
+        },
+        {
+          "name": "pose_s04",
+          "type": "IMAGE",
+          "link": 523
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selected_pose_preview",
+          "type": "IMAGE",
+          "links": [
+            524
+          ]
+        }
+      ],
+      "title": "Optional facial-landmark preview selector (disabled during render)",
+      "properties": {
+        "Node name for S&R": "H3SegmentActionImageSelector",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 132,
+      "type": "PrimitiveFloat",
+      "pos": [
+        -2270,
+        -70
+      ],
+      "size": [
+        310,
+        80
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            527
+          ]
+        }
+      ],
+      "title": "02 手动片段时长（4-15秒）/ 手动模式生效",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "PrimitiveFloat",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "value": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        5
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 165,
+      "type": "LoadAudio",
+      "pos": [
+        -440,
+        650
+      ],
+      "size": [
+        330,
+        140
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO",
+          "links": [
+            330,
+            333
+          ]
+        }
+      ],
+      "title": "07 Standalone Audio 1 - Optional Reference",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadAudio",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "audio": true,
+            "audioUI": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "",
+        null,
+        null
+      ]
+    },
+    {
+      "id": 266,
+      "type": "H3ReferenceAudioSwitch",
+      "pos": [
+        -820,
+        1130
+      ],
+      "size": [
+        330,
+        140
+      ],
+      "flags": {},
+      "order": 63,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": 544
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 586
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            552,
+            553
+          ]
+        }
+      ],
+      "title": "Ordinary Video 3 paired audio",
+      "properties": {
+        "Node name for S&R": "H3ReferenceAudioSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 177,
+      "type": "SamplerCustomAdvanced",
+      "pos": [
+        60,
+        -130
+      ],
+      "size": [
+        230,
+        140
+      ],
+      "flags": {},
+      "order": 93,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "noise",
+          "name": "noise",
+          "type": "NOISE",
+          "link": 342
+        },
+        {
+          "label": "guider",
+          "name": "guider",
+          "type": "GUIDER",
+          "link": 343
+        },
+        {
+          "label": "sampler",
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 344
+        },
+        {
+          "label": "sigmas",
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 345
+        },
+        {
+          "label": "latent_image",
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 348
+        }
+      ],
+      "outputs": [
+        {
+          "label": "output",
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            346,
+            347
+          ]
+        },
+        {
+          "label": "denoised_output",
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "SamplerCustomAdvanced",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 195,
+      "type": "H3AssetPromptReader",
+      "pos": [
+        -2390,
+        -1410
+      ],
+      "size": [
+        350,
+        770
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "project_context",
+          "type": "STRING",
+          "widget": {
+            "name": "project_context"
+          },
+          "link": 375
+        },
+        {
+          "name": "character_prompts",
+          "type": "STRING",
+          "widget": {
+            "name": "character_prompts"
+          },
+          "link": 376
+        },
+        {
+          "name": "scene_prompts",
+          "type": "STRING",
+          "widget": {
+            "name": "scene_prompts"
+          },
+          "link": 377
+        },
+        {
+          "name": "prop_prompts",
+          "type": "STRING",
+          "widget": {
+            "name": "prop_prompts"
+          },
+          "link": 378
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PROJECT_CONTEXT",
+          "type": "STRING",
+          "links": [
+            379,
+            380,
+            381
+          ]
+        },
+        {
+          "name": "ASSET_PROMPT_PACKAGE",
+          "type": "STRING",
+          "links": [
+            382
+          ]
+        }
+      ],
+      "title": "02 提示词文本读取 / 仅读取剧本输出",
+      "properties": {
+        "Node name for S&R": "H3AssetPromptReader",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "project_context": true,
+            "character_prompts": true,
+            "scene_prompts": true,
+            "prop_prompts": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "{}",
+        "[]",
+        "[]",
+        "[]",
+        ""
+      ]
+    },
+    {
+      "id": 188,
+      "type": "H3ScriptSkillInput",
+      "pos": [
+        -2950,
+        -1400
+      ],
+      "size": [
+        520,
+        760
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "PROJECT_CONTEXT",
+          "type": "STRING",
+          "links": [
+            375
+          ]
+        },
+        {
+          "name": "CHARACTER_PROMPTS",
+          "type": "STRING",
+          "links": [
+            376
+          ]
+        },
+        {
+          "name": "SCENE_PROMPTS",
+          "type": "STRING",
+          "links": [
+            377
+          ]
+        },
+        {
+          "name": "PROP_PROMPTS",
+          "type": "STRING",
+          "links": [
+            378
+          ]
+        }
+      ],
+      "title": "01 剧本与 Skill 输入 / GPT-5.6",
+      "properties": {
+        "Node name for S&R": "H3ScriptSkillInput",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "script_text": true,
+            "duration_seconds": true,
+            "api_base": true,
+            "model": true,
+            "api_key": true,
+            "project_id": true,
+            "context_mode": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        },
+        "h3_skill_package": {
+          "package_id": "skill-b9c4ed08d33b",
+          "source_name": "打斗动作Skill.rar",
+          "skill_file": "SKILL.md",
+          "file_count": 13,
+          "included_text_files": [
+            "agents/openai.yaml",
+            "references/01_bamboo_wuxia_mystery.json",
+            "references/02_armored_swordswoman.json",
+            "references/03_storm_pirate_battle.json",
+            "references/SOURCE_LICENSE.md",
+            "references/VIDEO_PROMPT_WRITING_GUIDE_ref_en.md"
+          ]
+        }
+      },
+      "widgets_values": [
+        "《地狱祷文》\n类型：宗教惊悚、身体恐怖、超自然悬疑短片\n标签：反常驱魔、囚禁、祷词反转、双人对峙、群体压迫、冷暖光线、表演驱动\n人设：被束缚但仍保有信仰意志的中年神父；以冷静、仪式化动作执行驱魔的女性恶魔；2至4名不同步逼近的异常信徒\n时长：42秒\n画幅：16:9\n版本：拍摄稿 V1.1，原片逐帧还原版\n注释：本稿以视频实际可见字幕和画面动作还原。原片音轨未检测到可可靠辨识的连续对白；字幕作为角色对白的文字依据，字幕文字后期叠加，不让视频模型直接生成可读文字。\n\n第一集\n\nS01-01  驱魔室的囚禁（建立受害者与反常设定）  现代/废弃宗教地牢  夜\n人物：被束缚的神父、女性恶魔、背景异常信徒\n△（建立中远景·正面平视 / 固定机位，0.00-4.03秒）高窗占据神父头顶背景，冷蓝色夜光从后方照出他的卷曲深色头发和肩部轮廓；他穿黑色旧神父服，坐在同一把木制刑椅上，双臂、胸前和椅背由铁链固定，背景烛火只在画面两侧形成微弱暖色亮点。\n△（表演）0.00-1.50秒，神父头部低垂，眼睛看不见，肩膀向内收，双手沉在扶手附近，手指没有主动动作；1.50-2.50秒，右手手指先轻微抽动，胸口开始起伏，像刚从昏迷中恢复呼吸；2.50-3.50秒，他的头部缓慢抬起，肩颈被铁链牵制，嘴唇分开但没有完整发声；3.50-4.03秒，胸口突然向前顶，脸部短暂露出惊惧，嘴张开，准备发出痛叫。\n△（声音）低沉的房间底噪、远处风声、衣料摩擦、铁链一次轻响；神父只保留压抑呼吸，不在开场马上喊叫。\n△（画面字幕，后期叠加）醒来时已经被绑住。\n\n△（切至中景·神父视线方向 / 稳定轻微前压，4.03-6.23秒）女性恶魔出现在烛火和背景信徒之间。她皮肤苍白，长黑发垂到胸前，穿灰白旧裙；眼睛保持黄褐色异常反光。神父的肩膀和头部以虚焦前景留在画面左侧，恶魔在画面右侧正面面对他。\n△（表演）4.03-5.20秒，恶魔垂着双手站立，脸部没有夸张变形，只用固定视线观察神父；5.20-5.80秒，她的下巴轻微抬起，眼睛从神父胸口移到他的脸；5.80-6.23秒，她嘴角出现很小的压迫性收紧，一只手向神父额头方向抬起。\n△（声音）烛火、背景信徒的低声喘息和木地板轻响；恶魔不说话，只保留衣袖摩擦声，让她的安静先建立权力。\n\n△（过肩中近景·从神父左后方看向恶魔 / 随手臂短距离跟移，6.23-8.53秒）恶魔进入神父的个人空间，一只手准确压住他的额头或发际线，掌根向下施力；神父背部被椅背固定，头部被迫向后仰，铁链在肩后拉紧。\n△（表演）6.23-6.80秒，神父看到手靠近，眼睛骤然睁大；6.80-7.40秒，恶魔手指收紧，神父下颌向上抬，嘴部打开；7.40-8.53秒，神父的嘴张到最大，眼睛挤闭，颈部和肩膀同时用力，痛叫从胸腔冲出；恶魔身体保持稳定，只让手臂完成侵犯。\n△（声音）铁链绷紧声、椅木受力声、神父第一声尖锐痛呼；接触瞬间加入短促低频冲击。\n△（画面字幕，后期叠加）恶魔竟然给神父驱魔。\n\nS01-02  反向祷词（恶魔把神圣语言变成压迫工具）  现代/同一驱魔室  夜\n人物：女性恶魔、被束缚的神父、背景异常信徒\n△（恶魔面部近景·正面略低机位 / 固定近景，8.53-10.13秒）恶魔苍白的脸占据画面中央，背景烛火虚化成暖色小光点，神父的卷曲头发在画面左下角形成失焦遮挡。她的眼睛直视神父，不看镜头外其他人。\n△（表演）8.53-9.00秒，恶魔嘴唇闭合，眼睛先锁定神父；9.00-9.55秒，她下颌下沉，嘴部快速张开，牙齿暴露，面颊和鼻翼用力；9.55-10.13秒，嘴部仍保持张开，眼神不躲闪，像把祷词当成命令。\n恶魔（低声咏诵、冷静而不带慈悲）：我们在地狱的父。\n△（声音）恶魔的声音低而干，字句之间留出短停顿；背景音乐不盖住嘴型和呼吸。\n\n△（神父面部近景·正面平视 / 固定机位，10.13-12.03秒）神父脸部被冷蓝背光和侧面暖光切成两半，恶魔的手仍压在他额头上，手腕和灰白衣袖从画面右上方伸入。\n△（表演）10.13-10.60秒，神父眼睛紧闭，眉心被手掌压出皱褶；10.60-11.20秒，他嘴部张开，牙齿和舌根可见，呼吸被拉成粗重的气声；11.20-12.03秒，他的头部向后撞在椅背上又回弹，眼睛仍未睁开，痛苦没有转成愤怒。\n恶魔（画外低声咏诵）：愿你的名为圣。\n△（声音）神父的喘息、木椅轻响和手掌施压声；不增加新的动作结果。\n\n△（恶魔面部近景·正面略低机位 / 轻微向前压近，12.03-14.20秒）恶魔继续保持相同空间方向，背景蜡烛在她肩后跳动，后方信徒以浅景深保持可见但不抢主角。\n△（表演）12.03-12.70秒，她的眼睛保持睁开，嘴唇先闭合；12.70-13.40秒，嘴唇打开，声音带出时下巴向前；13.40-14.20秒，眉心收紧，嘴角微微向一侧拉出不自然的笑，笑意不是开心，而是确认神父正在失去控制。\n恶魔（仪式化咏诵、语速慢）：愿你的国降临。\n△（声音）每句结尾留下半秒房间回响；背景信徒出现不整齐的呼吸。\n\n△（神父近景·正面平视 / 轻微手持震动，14.20-16.80秒）恶魔的手掌完整压在神父额头上，灰白袖口横过画面上方；神父被迫正对镜头，铁链在头部两侧形成斜向线条。\n△（表演）14.20-14.80秒，神父嘴巴大张，眼睛被痛苦挤闭；14.80-15.40秒，他的下颌向下掉，鼻翼扩张，面部从喊叫转为窒息；15.40-16.10秒，眉心和眼周同时收紧，嘴角向两侧拉开；16.10-16.80秒，他短暂停止大幅摆动，只剩胸口起伏和手指收紧，像被力量压住。\n恶魔（画外咏诵、声音更近）：愿你的旨意行使在这里。\n△（声音）手掌与皮肤的摩擦、神父被压住的呼吸；痛叫在句尾留出短暂空白。\n\nS01-03  地狱祷文（神父短暂恢复自我）  现代/同一驱魔室  夜\n人物：女性恶魔、被束缚的神父、背景异常信徒\n△（恶魔面部近景·正面平视 / 固定机位，16.80-17.57秒）恶魔的脸比上一镜更靠近，眼睛睁大，牙齿显露，长发贴在两侧脸颊；背景烛火保持暖色，神父虚焦轮廓压在前景边缘。\n△（表演）16.80-17.15秒，她先闭口吸气；17.15-17.57秒，嘴部突然张开，眼神集中到神父脸上，眉毛向下压，表情从控制转成短促的攻击性。\n恶魔（咬字加重）：如同行在地狱。\n\n△（神父近景·正面略高机位 / 短促手持晃动，17.57-19.47秒）神父的头部左右出现不稳定摆动，冷蓝窗光在他汗湿的额头上反光。\n△（表演）17.57-18.10秒，他的头向一侧歪，嘴张开，眼睛被迫闭合；18.10-18.70秒，头部向另一侧回摆，头发和脸部出现轻微运动模糊；18.70-19.20秒，他眉心紧缩，嘴部从尖叫收成痛苦的喘息；19.20-19.47秒，他的头垂低，像短暂失去支撑。\n△（声音）尖叫尾音断裂，接呼吸、铁链颤动和耳鸣般的低频；不使用持续音乐覆盖表演。\n\n△（神父面部近景·正面平视 / 从轻微摇晃回到稳定，19.47-22.77秒）镜头继续留在神父脸上，不切回恶魔，让观众看到他从崩溃边缘重新集中意识。背景椅背和铁链位置保持不变。\n△（表演）19.47-20.10秒，神父低头，眼睛仍闭着，嘴唇急促开合；20.10-20.70秒，他缓慢吸气，嘴部闭合，眉心稍微松开；20.70-21.30秒，他抬眼但不完全抬头，视线越过镜头寻找恶魔；21.30-22.10秒，眼睛逐渐睁开，眼神从疼痛转成清醒和抵抗；22.10-22.77秒，他正面看向恶魔，嘴唇先抿紧，再艰难张开。\n神父（喘息后恢复一点意识、低声但明确）：上帝就在我身体里。\n△（声音）先保留喘息和一秒停顿，再让神父说出完整句子；台词后不立刻添加尖叫，留出恶魔反应的空间。\n\nS01-04  驱逐宣告（冲突从疼痛变成灵魂争夺）  现代/同一驱魔室  夜\n人物：女性恶魔、被束缚的神父、背景异常信徒\n△（恶魔中近景·从神父肩后正面看 / 缓慢向前压近，22.77-25.00秒）神父的卷曲头发和肩膀作为左前景遮挡，恶魔从烛光中向他俯身；她的身体位置比上一段更靠近，但空间仍未改变。\n△（表演）22.77-23.30秒，恶魔闭眼或压低视线，像在听神父体内的回应；23.30-24.00秒，她重新抬眼，嘴角出现很轻的满足笑；24.00-25.00秒，笑意逐步扩大，牙齿露出，眼神变得像捕食者确认了目标。\n恶魔（先解释、后显露兴奋）：所以我要从你的身体里驱逐他。\n△（声音）恶魔的前半句压低、稳定，后半句在“驱逐他”处加重；背景信徒的呼吸逐渐靠近。\n\n△（恶魔面部近景·正面略低机位 / 固定机位，25.00-28.57秒）镜头保持恶魔脸部和神父前景的关系，不用大幅运动。恶魔的黄褐色眼睛在暖光下清晰可见，背景信徒的脸保持虚化。\n△（表演）25.00-25.70秒，她维持微笑，眼睛不眨；25.70-26.50秒，嘴角向两侧拉开，脸部露出带牙齿的笑；26.50-27.20秒，笑意变窄，鼻翼和眉心开始收紧；27.20-28.00秒，她的下巴向前，像把力量推入空气；28.00-28.57秒，嘴部张开，笑意转成凶狠的命令状态，眼神牢牢锁住神父。\n△（声音）恶魔的低声持续推进，烛火和背景人声保持低位，不让声音高潮提前发生。\n\n△（恶魔侧面近景·三分之二侧面 / 微小横向调整，28.57-31.43秒）恶魔转入更侧面的构图，神父不再占据主要前景；她的脸部阴影更重，黄眼反光和嘴部成为画面中心。\n△（表演）28.57-29.20秒，她眼睛先看向神父身体内部的方向，嘴唇半开；29.20-30.00秒，她说话时下颌持续向前，牙齿暴露；30.00-30.70秒，眼神从神父脸上移到自己带血的手；30.70-31.43秒，她的眼睛再次抬起，脸部绷紧，像把血当作仪式媒介而不是普通武器。\n恶魔（近乎虔诚、带有压抑兴奋）：将所有力量注入这血中。\n△（声音）台词尾部加入低频脉冲和一声细小的血液/手指摩擦声，音乐不盖住“血中”两个字。\n\nS01-05  血的仪式（肉体反应达到峰值）  现代/同一驱魔室  夜\n人物：被束缚的神父、女性恶魔、背景异常信徒\n△（神父近景·正面略低机位 / 动作瞬间轻微手持冲击，31.43-34.13秒）神父被固定在椅子中央，冷蓝窗户和铁链完整留在背景；他的身体不是站起，而是被无形力量从椅背向后拉伸。\n△（表演）31.43-32.00秒，神父头部突然向后仰，嘴巴大张，眼睛紧闭；32.00-32.70秒，颈部和下颌完全暴露，胸口向上顶，双手在束缚中用力；32.70-33.30秒，他的头向一侧偏移，脸部出现运动模糊，嘴部仍保持张开；33.30-34.13秒，他从持续尖叫转为破碎喘息，眼周和嘴角出现疲惫，身体暂时下坠。\n恶魔（画外，继续施术）：将所有力量注入这血中。\n△（声音）铁链绷紧、木椅受力、神父连续尖叫；在33.30秒后迅速减小尖叫音量，只保留粗重呼吸。\n\n△（恶魔近景·正面平视 / 双手向镜头缓慢推进，34.13-37.23秒）恶魔双臂从身体两侧伸出，双手进入前景；指尖和掌心有鲜红血迹。她的衣袖、手指、脸和背景信徒保持在同一空间中，不出现突然换装或换脸。\n△（表演）34.13-34.70秒，她抬起双手，眼睛先盯着自己的血手；34.70-35.40秒，双手向前推，手指分开，掌心朝向神父；35.40-36.10秒，她嘴角向上，脸上出现短暂满足；36.10-36.80秒，眉心收紧，手指继续向内抓取，像把力量压入神父身体；36.80-37.23秒，她的眼睛抬向神父，笑意没有消失，但表情变成命令和胜利预感。\n恶魔（对神圣秩序发出排斥）：避开天使的圣洁。\n△（声音）手指和空气的摩擦声、低频脉冲、背景信徒开始不整齐地喘息；不加入爆炸式特效声。\n\nS01-06  最后的不（群体逼近与意识拒绝）  现代/同一驱魔室  夜\n人物：被束缚的神父、女性恶魔、背景异常信徒\n△（神父近景·正面平视 / 从轻微晃动恢复稳定，37.23-38.37秒）神父重新出现在冷蓝窗光中，恶魔和血手暂时离开主要画面区域；他仍坐在同一把椅子上，铁链和窗框位置不变。\n△（表演）37.23-37.70秒，神父低头喘息，眼睛闭合；37.70-38.10秒，他抬头，眼睛睁开，视线先落在镜头下方；38.10-38.37秒，他看向前方，脸上出现短暂的清醒和恐惧，嘴唇微张但暂时不说话。\n△（声音）尖叫后留下粗重呼吸和短暂安静；让观众听到最后命令到来前的空隙。\n\n△（群体中近景·神父正面视线方向 / 手持快速向前挤压，38.37-40.30秒）恶魔和2至4名背景信徒同时挤入画面。血手从前景伸向神父的脸；后方信徒的眼睛、牙齿和张开的嘴不完全同步，形成群体压迫而不是整齐合唱。\n△（表演）38.37-38.80秒，恶魔血手先进入画面，神父抬手想挡但仍被束缚；38.80-39.30秒，第一名信徒张嘴靠近，第二名信徒从后方抬头；39.30-39.80秒，神父眼睛挤闭，嘴部向后拉，脸部被血手和人群夹住；39.80-40.30秒，恶魔和信徒同时张嘴，神父身体向后陷入椅背。\n恶魔（贴近神父、命令式爆发）：上帝，离开这躯体吧！\n△（声音）群体喘息、血手擦过皮肤、神父被压迫的喉音；恶魔在“离开”处加重，结尾留下短暂混响。\n\n△（神父面部特写·正面略低机位 / 硬切后保持稳定，40.30-41.80秒）镜头硬切回神父。冷蓝窗光照亮他的脸，脸上有汗、污渍和伤痕；他仰头张嘴，黑色衣领和铁链在下方与两侧可见。\n△（表演）40.30-40.80秒，神父头部向后，嘴部大张，眼睛紧闭；40.80-41.20秒，他的下颌继续向上，颈部绷紧，声音达到最高点；41.20-41.50秒，他的头向前回落，眉心收紧，眼睛仍半闭；41.50-41.80秒，他用最后的清醒收住嘴部，吐出拒绝，不是哭喊，而是短而有意志的单字。\n神父（极度虚弱但明确拒绝）：不。\n△（声音）“不”之后立即切黑，声音只保留极短尾响，不解释驱魔是否成功。\n△（片尾）黑场，不加结局说明；保留悬念，下一段可从神父是否仍保持自我继续。\n",
+        60,
+        "https://api.toapis.com/v1",
+        "gpt-5.6-sol",
+        "",
+        "h3-8c7b8202a2eb",
+        "auto",
+        ""
+      ]
+    },
+    {
+      "id": 251,
+      "type": "H3SafeFacialPartColoring",
+      "pos": [
+        860,
+        1370
+      ],
+      "size": [
+        500,
+        360
+      ],
+      "flags": {},
+      "order": 72,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pose_kps",
+          "type": "POSE_KEYPOINT",
+          "link": 503
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            520
+          ]
+        }
+      ],
+      "title": "S01 面部表情关键点可视化",
+      "properties": {
+        "Node name for S&R": "H3SafeFacialPartColoring",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "point",
+        "rgb(0, 153, 255)",
+        "rgb(0, 204, 153)",
+        "rgb(255, 153, 0)",
+        "rgb(255, 102, 255)",
+        "rgb(102, 0, 51)",
+        "rgb(255, 204, 255)",
+        "rgb(255, 0, 102)"
+      ]
+    },
+    {
+      "id": 217,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1320,
+        1370
+      ],
+      "size": [
+        300,
+        220
+      ],
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 448
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            574
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            461
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "S01 动作帧 + 音频",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 178,
+      "type": "MiniMaxH3TurboLoRA",
+      "pos": [
+        -2580,
+        650
+      ],
+      "size": [
+        440,
+        150
+      ],
+      "flags": {},
+      "order": 64,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 561
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            573
+          ]
+        }
+      ],
+      "title": "02 MiniMax-H3 Turbo v4-600 EMA 涓撶敤 LoRA",
+      "properties": {
+        "cnr_id": "comfyui-minimax-h3-turbo",
+        "ver": "1.2.3",
+        "Node name for S&R": "MiniMaxH3TurboLoRA",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+        1,
+        true
+      ]
+    },
+    {
+      "id": 128,
+      "type": "CLIPLoader",
+      "pos": [
+        -3000,
+        -170
+      ],
+      "size": [
+        610,
+        120
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            272
+          ]
+        }
+      ],
+      "title": "01 Qwen3-VL Text Encoder",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "CLIPLoader",
+        "models": [
+          {
+            "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+            "directory": "text_encoders"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "clip_name": true,
+            "type": true,
+            "device": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+        "minimax",
+        "default"
+      ]
+    },
+    {
+      "id": 119,
+      "type": "VAELoader",
+      "pos": [
+        -3000,
+        0
+      ],
+      "size": [
+        610,
+        70
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            251,
+            273
+          ]
+        }
+      ],
+      "title": "01 Video VAE",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "VAELoader",
+        "models": [
+          {
+            "name": "minimax_h3_video_vae_fp16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_fp16.safetensors",
+            "directory": "vae"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "vae_name": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "minimax_h3_video_vae_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 150,
+      "type": "LoadVideo",
+      "pos": [
+        -1950,
+        940
+      ],
+      "size": [
+        280,
+        100
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            293
+          ]
+        }
+      ],
+      "title": "06 Video 2 — Load",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "h3_video_2.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 152,
+      "type": "LoadVideo",
+      "pos": [
+        -1950,
+        1130
+      ],
+      "size": [
+        280,
+        100
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            296
+          ]
+        }
+      ],
+      "title": "06 Video 3 — Load",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "h3_video_3.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 261,
+      "type": "H3ReferenceImageSwitch",
+      "pos": [
+        -1200,
+        890
+      ],
+      "size": [
+        370,
+        150
+      ],
+      "flags": {},
+      "order": 53,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 529
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            533,
+            534
+          ]
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": [
+            546,
+            555
+          ]
+        }
+      ],
+      "title": "Ordinary Video 2 independent switch (default off)",
+      "properties": {
+        "Node name for S&R": "H3ReferenceImageSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 222,
+      "type": "DWPreprocessor",
+      "pos": [
+        -1000,
+        2000
+      ],
+      "size": [
+        460,
+        230
+      ],
+      "flags": {},
+      "order": 58,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 577
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            466,
+            464
+          ]
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            504
+          ]
+        }
+      ],
+      "title": "S02 DWPose motion-control source / 身体·手部·腿部·面部关键点",
+      "properties": {
+        "cnr_id": "comfyui_controlnet_aux",
+        "ver": "12f35647f0d510e03b45a47fb420fe1245a575df",
+        "Node name for S&R": "DWPreprocessor",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable",
+        512,
+        "yolox_l.onnx",
+        "dw-ll_ucoco_384_bs5.torchscript.pt",
+        "disable"
+      ]
+    },
+    {
+      "id": 191,
+      "type": "H3SegmentProductionManager",
+      "pos": [
+        -580,
+        -1410
+      ],
+      "size": [
+        700,
+        810
+      ],
+      "flags": {},
+      "order": 70,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "project_context",
+          "type": "STRING",
+          "widget": {
+            "name": "project_context"
+          },
+          "link": 381
+        },
+        {
+          "name": "storyboard_json",
+          "type": "STRING",
+          "widget": {
+            "name": "storyboard_json"
+          },
+          "link": 370
+        }
+      ],
+      "outputs": [
+        {
+          "name": "PRODUCTION_PLAN",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "H3_PROMPT",
+          "type": "STRING",
+          "links": [
+            371
+          ]
+        },
+        {
+          "name": "PICTURE_1",
+          "type": "IMAGE",
+          "links": [
+            278,
+            299
+          ]
+        },
+        {
+          "name": "PICTURE_2",
+          "type": "IMAGE",
+          "links": [
+            282,
+            300
+          ]
+        },
+        {
+          "name": "PICTURE_3",
+          "type": "IMAGE",
+          "links": [
+            283,
+            301
+          ]
+        },
+        {
+          "name": "PICTURE_4",
+          "type": "IMAGE",
+          "links": [
+            284,
+            302
+          ]
+        },
+        {
+          "name": "PICTURE_5",
+          "type": "IMAGE",
+          "links": [
+            285,
+            303
+          ]
+        },
+        {
+          "name": "PICTURE_6",
+          "type": "IMAGE",
+          "links": [
+            286,
+            304
+          ]
+        },
+        {
+          "name": "SEGMENT_DURATION",
+          "type": "FLOAT",
+          "links": [
+            525
+          ]
+        },
+        {
+          "name": "SEGMENT_INDEX",
+          "type": "INT",
+          "links": [
+            456,
+            457,
+            458,
+            507,
+            518
+          ]
+        },
+        {
+          "name": "SEGMENT_ID",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "05 视频生产 / 当前 S01-S04 分段顺序生成",
+      "properties": {
+        "Node name for S&R": "H3SegmentProductionManager",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "project_context": true,
+            "storyboard_json": true,
+            "base_workflow_path": true,
+            "queue_mode": true,
+            "active_segment": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "C:\\Users\\Administrator\\Desktop\\H3_6图剧本资产分镜节点开发版\\workflow_templates\\MiniMax_H3_6Ref_RealESRGAN_ExecutionTemplate.json",
+        "sequential",
+        1,
+        "sequential",
+        1,
+        ""
+      ]
+    },
+    {
+      "id": 273,
+      "type": "H3ReferenceImageSwitch",
+      "pos": [
+        -1210,
+        1120
+      ],
+      "size": [
+        470,
+        150
+      ],
+      "flags": {},
+      "order": 54,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 584
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            585
+          ]
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": [
+            586,
+            587
+          ]
+        }
+      ],
+      "title": "Ordinary Video 3 independent switch (off during action capture)",
+      "properties": {
+        "Node name for S&R": "H3ReferenceImageSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 260,
+      "type": "H3ReferenceImageSwitch",
+      "pos": [
+        -1200,
+        650
+      ],
+      "size": [
+        370,
+        150
+      ],
+      "flags": {},
+      "order": 56,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 528
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            531,
+            532
+          ]
+        },
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "links": [
+            545,
+            554
+          ]
+        }
+      ],
+      "title": "Ordinary Video 1 independent switch (default off)",
+      "properties": {
+        "Node name for S&R": "H3ReferenceImageSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        false
+      ]
+    },
+    {
+      "id": 189,
+      "type": "H3AssetLibrary",
+      "pos": [
+        -2000,
+        -1430
+      ],
+      "size": [
+        590,
+        820
+      ],
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "project_context",
+          "type": "STRING",
+          "widget": {
+            "name": "project_context"
+          },
+          "link": 379
+        },
+        {
+          "name": "asset_prompt_package",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "asset_prompt_package"
+          },
+          "link": 382
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ASSET_MANIFEST",
+          "type": "STRING",
+          "links": [
+            383
+          ]
+        }
+      ],
+      "title": "03 手动资产库 / 角色 · 场景 · 道具",
+      "properties": {
+        "Node name for S&R": "H3AssetLibrary",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "project_context": true,
+            "asset_prompt_package": true,
+            "asset_manifest_json": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "[]",
+        "[\n  {\n    \"asset_id\": \"Bound Priest\",\n    \"name\": \"Bound Priest\",\n    \"category\": \"character\",\n    \"path\": \"Bound Priest.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Bound Priest.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Female Demon\",\n    \"name\": \"Female Demon\",\n    \"category\": \"character\",\n    \"path\": \"Female Demon.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Female Demon.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Abnormal Believer One\",\n    \"name\": \"Abnormal Believer One\",\n    \"category\": \"character\",\n    \"path\": \"Abnormal Believer One.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Abnormal Believer One.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Abnormal Believer Two\",\n    \"name\": \"Abnormal Believer Two\",\n    \"category\": \"character\",\n    \"path\": \"Abnormal Believer Two.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Abnormal Believer Two.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Abnormal Believer Three\",\n    \"name\": \"Abnormal Believer Three\",\n    \"category\": \"character\",\n    \"path\": \"Abnormal Believer Three.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Abnormal Believer Three.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Abnormal Believer Four\",\n    \"name\": \"Abnormal Believer Four\",\n    \"category\": \"character\",\n    \"path\": \"Abnormal Believer Four.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Abnormal Believer Four.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Abandoned Religious Dungeon Exorcism Room\",\n    \"name\": \"Abandoned Religious Dungeon Exorcism Room\",\n    \"category\": \"scene\",\n    \"path\": \"Abandoned Religious Dungeon Exorcism Room.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Abandoned Religious Dungeon Exorcism Room.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Wooden Restraint Chair\",\n    \"name\": \"Wooden Restraint Chair\",\n    \"category\": \"prop\",\n    \"path\": \"Wooden Restraint Chair.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Wooden Restraint Chair.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Iron Restraint Chains\",\n    \"name\": \"Iron Restraint Chains\",\n    \"category\": \"prop\",\n    \"path\": \"Iron Restraint Chains.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Iron Restraint Chains.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Dungeon Candle Set\",\n    \"name\": \"Dungeon Candle Set\",\n    \"category\": \"prop\",\n    \"path\": \"Dungeon Candle Set.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Dungeon Candle Set.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  },\n  {\n    \"asset_id\": \"Fresh Ritual Blood\",\n    \"name\": \"Fresh Ritual Blood\",\n    \"category\": \"prop\",\n    \"path\": \"Fresh Ritual Blood.png\",\n    \"subfolder\": \"\",\n    \"type\": \"input\",\n    \"preview\": {\n      \"filename\": \"Fresh Ritual Blood.png\",\n      \"subfolder\": \"\",\n      \"type\": \"input\"\n    },\n    \"description\": \"\",\n    \"tags\": []\n  }\n]",
+        "{}",
+        ""
+      ]
+    },
+    {
+      "id": 190,
+      "type": "H3StoryboardDirector",
+      "pos": [
+        -1350,
+        -1430
+      ],
+      "size": [
+        720,
+        800
+      ],
+      "flags": {},
+      "order": 61,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "project_context",
+          "type": "STRING",
+          "widget": {
+            "name": "project_context"
+          },
+          "link": 380
+        },
+        {
+          "name": "asset_manifest",
+          "type": "STRING",
+          "widget": {
+            "name": "asset_manifest"
+          },
+          "link": 383
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STORYBOARD_JSON",
+          "type": "STRING",
+          "links": [
+            370
+          ]
+        }
+      ],
+      "title": "04 分镜导演 / 生成六图分镜",
+      "properties": {
+        "Node name for S&R": "H3StoryboardDirector",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "project_context": true,
+            "asset_manifest": true,
+            "repair_if_needed": true,
+            "storyboard_mode": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "auto",
+        "auto",
+        "auto",
+        "auto",
+        ""
+      ]
+    },
+    {
+      "id": 127,
+      "type": "UNETLoader",
+      "pos": [
+        -2990,
+        -300
+      ],
+      "size": [
+        610,
+        90
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            336
+          ]
+        }
+      ],
+      "title": "01 Diffusion Model",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "UNETLoader",
+        "models": [
+          {
+            "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ],
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "unet_name": true,
+            "weight_dtype": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "minimax_h3_fl2va_int8_convrot.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 197,
+      "type": "MiniMaxH3TurboLoRA",
+      "pos": [
+        -2590,
+        870
+      ],
+      "size": [
+        440,
+        150
+      ],
+      "flags": {},
+      "order": 71,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 573
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            571,
+            572
+          ]
+        }
+      ],
+      "title": "Disabled: extra Realism LoRA not used in validated baseline",
+      "properties": {
+        "cnr_id": "comfyui-minimax-h3-turbo",
+        "ver": "1.2.3",
+        "Node name for S&R": "MiniMaxH3TurboLoRA",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "h3-realism-people-t2v-i2v-r2v.safetensors",
+        1,
+        true
+      ]
+    },
+    {
+      "id": 280,
+      "type": "LoadVideo",
+      "pos": [
+        3640,
+        -50
+      ],
+      "size": [
+        590,
+        660
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "title": "无真实人物LORA",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "http___127.0.0.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 281,
+      "type": "LoadVideo",
+      "pos": [
+        4240,
+        -50
+      ],
+      "size": [
+        590,
+        660
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "title": "增加人物真实LORA",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S01_original_00003_.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 278,
+      "type": "LoadVideo",
+      "pos": [
+        4250,
+        700
+      ],
+      "size": [
+        590,
+        660
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "title": "真实人物LORA，主模型XUELUP_in8",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S02_original_00002_.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 279,
+      "type": "LoadVideo",
+      "pos": [
+        3640,
+        700
+      ],
+      "size": [
+        590,
+        660
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": []
+        }
+      ],
+      "title": "无真实人物LORA，主模型XUELUP_in8",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S02_original_00001_.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 250,
+      "type": "H3ReferenceVideoPrompt",
+      "pos": [
+        0,
+        650
+      ],
+      "size": [
+        980,
+        560
+      ],
+      "flags": {},
+      "order": 88,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 516
+        },
+        {
+          "name": "video_1_enabled",
+          "type": "BOOLEAN",
+          "link": 554
+        },
+        {
+          "name": "video_2_enabled",
+          "type": "BOOLEAN",
+          "link": 555
+        },
+        {
+          "name": "video_3_enabled",
+          "type": "BOOLEAN",
+          "link": 587
+        },
+        {
+          "name": "action_enabled",
+          "type": "BOOLEAN",
+          "link": 557
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            485
+          ]
+        }
+      ],
+      "title": "H3 视频参考提示词 + 分工补充提示词",
+      "properties": {
+        "Node name for S&R": "H3ReferenceVideoPrompt",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "将 <Video 1> 镜头",
+        "色调",
+        "将第三路有效参考视频作为DWPose关键点动作控制视频；只模仿约60%的骨架、手部、头部朝向、视线和面部表情节奏，不完美复刻，不读取人物身份、服装、背景、道具、光照、色彩、构图、声音或叠加层。",
+        "资产库角色卡、场景卡、道具卡和当前分镜提示词拥有最高优先级。动作视频已裁掉底部叠加层并转换为DWPose/关键点控制视频，只允许约60%模仿身体动作、手势、头部运动、视线、面部表演和时间节奏。严禁复制参考视频中的人物、背景、服装、道具、声音、光照、颜色、叠加层、UI标记、水印、可读符号或任何可读符号。 Clean cinematic frame only; no overlays, UI marks, watermarks, readable glyphs or overlay-like marks, especially during the first two seconds.",
+        "Dedicated action slot receives cropped DWPose/keypoint frames only. Use about 60 percent motion resemblance for body, hands, legs, head, gaze, facial performance and timing. Preserve target identity, face, hair, wardrobe, body shape, scene, props, composition and camera from the asset library and current segment prompt. Do not copy the reference person, background, camera, color, lighting, sound, overlays, watermarks or readable glyphs.",
+        3
+      ]
+    },
+    {
+      "id": 148,
+      "type": "LoadVideo",
+      "pos": [
+        -1950,
+        650
+      ],
+      "size": [
+        280,
+        240
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            290
+          ]
+        }
+      ],
+      "title": "06 Video 1 — Load",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "参考1.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 149,
+      "type": "GetVideoComponents",
+      "pos": [
+        -1580,
+        650
+      ],
+      "size": [
+        280,
+        160
+      ],
+      "flags": {},
+      "order": 45,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 290
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": [
+            528
+          ]
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": [
+            542
+          ]
+        },
+        {
+          "name": "fps",
+          "type": "FLOAT",
+          "links": null
+        },
+        {
+          "name": "bit_depth",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "title": "06 Video 1 — Frames + Audio",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "GetVideoComponents",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 240,
+      "type": "H3ActionCaptureSwitch",
+      "pos": [
+        -1940,
+        1390
+      ],
+      "size": [
+        210,
+        120
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "capture_enabled",
+          "type": "BOOLEAN",
+          "links": [
+            495,
+            496
+          ]
+        }
+      ],
+      "title": "S01 动作+表情捕捉总开关",
+      "properties": {
+        "Node name for S&R": "H3ActionCaptureSwitch",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        true
+      ]
+    },
+    {
+      "id": 216,
+      "type": "LoadVideo",
+      "pos": [
+        -1680,
+        1370
+      ],
+      "size": [
+        300,
+        250
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            448
+          ]
+        }
+      ],
+      "title": "S01 动作参考视频 / 仅本段启用时加载",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "LoadVideo",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "file": true,
+            "upload": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "参考1.mp4",
+        "image"
+      ]
+    },
+    {
+      "id": 219,
+      "type": "H3ActionSegmentConfig",
+      "pos": [
+        -530,
+        1380
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 495
+        }
+      ],
+      "outputs": [
+        {
+          "name": "config",
+          "type": "H3_ACTION_CONFIG",
+          "links": [
+            459
+          ]
+        }
+      ],
+      "title": "S01 动作迁移 JSON / 60%模仿 + 资产优先 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3ActionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S01",
+        true,
+        "{\r\n  \"instruction\": \"以参考视频为表演灵感，只迁移约60%的身体动作、手势、头部与表情节奏；不要完美复刻，不要逐帧照搬，不迁移参考人物身份、外观、背景或叠加层。\",\r\n  \"reference_scope\": \"当前生成分段为 S01，参考视频只提供中等强度动作与表情模仿；资产库角色、场景、道具和当前分镜拥有最高优先级。\",\r\n  \"timing\": \"参考动作的大致起止、停顿、加速、减速和重心变化，允许根据目标角色与场景自然重演；不要严格逐帧同步。\",\r\n  \"body_motion\": \"中等强度模仿躯干朝向、肩胯关系、重心变化和身体倾斜幅度，保留目标角色自己的动作自然性。\",\r\n  \"hand_motion\": \"中等强度模仿双臂轨迹、手腕方向、手掌姿态和手指开合；不要复制参考视频的具体手部位置到像素级。\",\r\n  \"head_motion\": \"中等强度模仿抬头、低头、点头、摇头、转头和停顿，与目标角色表演自然同步。\",\r\n  \"gaze\": \"参考视线方向和停留节奏，但视线目标必须服从当前分镜与资产库场景。\",\r\n  \"facial_performance\": \"模仿约60%的表情强弱、呼吸、眼神和嘴型节奏；面部身份、脸型、发型和妆容必须来自资产库角色。\",\r\n  \"frame_alignment\": \"只参考动作趋势和节奏，不要求逐帧一致；避免动作变成原视频复刻。\",\r\n  \"preserve\": \"严格保持资产库角色、脸型、年龄、发型、服装、场景、道具、镜头构图、光照和画面风格一致。\",\r\n  \"identity_lock\": \"参考视频中的人物只提供动作和表演轨迹，不复制其身份、脸部、身材、服装或材质。\",\r\n  \"scene_lock\": \"不得把参考视频的背景、地面、墙面、灯光、机位或镜头语言迁移到目标画面。\",\r\n  \"prop_lock\": \"道具和角色与道具的接触关系以资产库和当前分镜为准，不复制参考视频中的道具。\",\r\n  \"avoid\": \"避免完美复刻参考视频、叠加层、可读符号、UI标记、动作漂移、动作跳帧、幅度过大、脚底滑动、关节扭曲、手指融合、重复肢体和身体穿模。\",\r\n  \"do_not_copy\": \"不要复制参考人物、背景、服装、道具、声音、摄影机、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.6,
+        0.45
+      ]
+    },
+    {
+      "id": 244,
+      "type": "H3FaceExpressionSegmentConfig",
+      "pos": [
+        160,
+        1370
+      ],
+      "size": [
+        640,
+        520
+      ],
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "enabled",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "enabled"
+          },
+          "link": 496
+        }
+      ],
+      "outputs": [
+        {
+          "name": "face_config",
+          "type": "H3_FACE_CONFIG",
+          "links": [
+            508
+          ]
+        }
+      ],
+      "title": "S01 表情迁移 JSON / 60%模仿 + 禁叠加层",
+      "properties": {
+        "Node name for S&R": "H3FaceExpressionSegmentConfig",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "enabled": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "S01",
+        true,
+        "{\r\n  \"expression\": \"模仿参考视频约60%的眉毛、眼睑、眼神、嘴型、下颌和情绪节奏；不要完美复刻参考人物表情。\",\r\n  \"head_motion\": \"中等强度参考抬头、低头、点头、摇头、转头、脸部朝向和停顿。\",\r\n  \"gaze\": \"参考视线方向和视线转移节奏，但视线目标服从当前分镜，不复制参考人物身份。\",\r\n  \"mouth_motion\": \"参考嘴唇开合、嘴角变化、下颌运动和呼吸节奏；不要在画面中生成任何对白相关可读符号或叠加层。\",\r\n  \"timing\": \"当前分段为 S01，只参考表情变化趋势和节奏，不要求逐帧一致。\",\r\n  \"expression_strength\": \"中等强度保留微表情、情绪转折、眨眼和短暂停顿，避免静止脸或过度夸张。\",\r\n  \"preserve\": \"严格保持资产库角色的脸型、身份、年龄、发型、妆容、服装、场景、道具、光照和镜头构图。\",\r\n  \"identity_lock\": \"参考视频只提供表情、头部和视线运动，不复制参考人物的脸、五官比例、肤色或外观。\",\r\n  \"scene_lock\": \"不得迁移参考视频的背景、场景、镜头、光照或摄影机运动。\",\r\n  \"avoid\": \"避免叠加层、UI标记、水印、可读符号、眼神漂移、眼睛失焦、嘴型错位、表情跳变、面部冻结、五官变形、重复嘴唇、额外眼睛和表情与动作不同步。\",\r\n  \"do_not_copy\": \"不要复制参考人物的身份、脸型、发型、服装、场景、道具、声音、构图、叠加层、UI标记、水印或可读符号。\"\r\n}",
+        0.6,
+        0.6,
+        0.6,
+        0.55,
+        0.6
+      ]
+    },
+    {
+      "id": 218,
+      "type": "DWPreprocessor",
+      "pos": [
+        -1010,
+        1380
+      ],
+      "size": [
+        460,
+        230
+      ],
+      "flags": {},
+      "order": 66,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 575
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            462,
+            460
+          ]
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            503
+          ]
+        }
+      ],
+      "title": "S01 DWPose motion-control source / 身体·手部·腿部·面部关键点",
+      "properties": {
+        "cnr_id": "comfyui_controlnet_aux",
+        "ver": "12f35647f0d510e03b45a47fb420fe1245a575df",
+        "Node name for S&R": "DWPreprocessor",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable",
+        512,
+        "yolox_l.onnx",
+        "dw-ll_ucoco_384_bs5.torchscript.pt",
+        "disable"
+      ]
+    },
+    {
+      "id": 235,
+      "type": "PreviewImage",
+      "pos": [
+        1530,
+        2710
+      ],
+      "size": [
+        480,
+        300
+      ],
+      "flags": {},
+      "order": 84,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 494
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "title": "Optional body-pose preview (disabled during render)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "PreviewImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 256,
+      "type": "PreviewImage",
+      "pos": [
+        2640,
+        2660
+      ],
+      "size": [
+        480,
+        300
+      ],
+      "flags": {},
+      "order": 85,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 524
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "title": "Optional facial-expression preview (disabled during render)",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.30.0",
+        "Node name for S&R": "PreviewImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 268,
+      "type": "H3ActionSubtitleGuard",
+      "pos": [
+        1500,
+        3180
+      ],
+      "size": [
+        330,
+        110
+      ],
+      "flags": {},
+      "order": 57,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 574
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_action_frames",
+          "type": "IMAGE",
+          "links": [
+            575
+          ]
+        }
+      ],
+      "title": "S01 参考源跳过开头+去底部叠加层后再提动作",
+      "properties": {
+        "Node name for S&R": "H3ActionSubtitleGuard",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "crop_bottom_percent": true,
+            "crop_top_percent": true,
+            "skip_start_frames": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        22,
+        0,
+        12
+      ]
+    },
+    {
+      "id": 269,
+      "type": "H3ActionSubtitleGuard",
+      "pos": [
+        1480,
+        3340
+      ],
+      "size": [
+        340,
+        110
+      ],
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 576
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_action_frames",
+          "type": "IMAGE",
+          "links": [
+            577
+          ]
+        }
+      ],
+      "title": "S02 参考源跳过开头+去底部叠加层后再提动作",
+      "properties": {
+        "Node name for S&R": "H3ActionSubtitleGuard",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "crop_bottom_percent": true,
+            "crop_top_percent": true,
+            "skip_start_frames": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        22,
+        0,
+        12
+      ]
+    },
+    {
+      "id": 270,
+      "type": "H3ActionSubtitleGuard",
+      "pos": [
+        1490,
+        3550
+      ],
+      "size": [
+        340,
+        110
+      ],
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 578
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_action_frames",
+          "type": "IMAGE",
+          "links": [
+            579
+          ]
+        }
+      ],
+      "title": "S03 参考源跳过开头+去底部叠加层后再提动作",
+      "properties": {
+        "Node name for S&R": "H3ActionSubtitleGuard",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "crop_bottom_percent": true,
+            "crop_top_percent": true,
+            "skip_start_frames": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        22,
+        0,
+        12
+      ]
+    },
+    {
+      "id": 271,
+      "type": "H3ActionSubtitleGuard",
+      "pos": [
+        1480,
+        3700
+      ],
+      "size": [
+        340,
+        110
+      ],
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 580
+        }
+      ],
+      "outputs": [
+        {
+          "name": "clean_action_frames",
+          "type": "IMAGE",
+          "links": [
+            581
+          ]
+        }
+      ],
+      "title": "S04 参考源跳过开头+去底部叠加层后再提动作",
+      "properties": {
+        "Node name for S&R": "H3ActionSubtitleGuard",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "crop_bottom_percent": true,
+            "crop_top_percent": true,
+            "skip_start_frames": true
+          },
+          "version": "7.3",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        22,
+        0,
+        12
+      ]
+    },
+    {
+      "id": 198,
+      "type": "CR Text",
+      "pos": [
+        -2250,
+        430
+      ],
+      "size": [
+        430,
+        150
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "label": "文本",
+          "name": "text",
+          "type": "*",
+          "links": [
+            388
+          ]
+        },
+        {
+          "label": "显示帮助",
+          "name": "show_help",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Realism People 触发词 / r34l1sm",
+      "properties": {
+        "cnr_id": "ComfyUI_Comfyroll_CustomNodes",
+        "ver": "d78b780ae43fcf8c6b7c6505e6ffb4584281ceca",
+        "Node name for S&R": "CR Text",
+        "ue_properties": {
+          "version": "7.3",
+          "widget_ue_connectable": {},
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "r34l1sm"
+      ]
+    }
+  ],
+  "links": [
+    [
+      250,
+      120,
+      0,
+      121,
+      1,
+      "VAE"
+    ],
+    [
+      251,
+      119,
+      0,
+      122,
+      1,
+      "VAE"
+    ],
+    [
+      258,
+      122,
+      0,
+      130,
+      0,
+      "IMAGE"
+    ],
+    [
+      259,
+      121,
+      0,
+      130,
+      1,
+      "AUDIO"
+    ],
+    [
+      260,
+      130,
+      0,
+      92,
+      0,
+      "VIDEO"
+    ],
+    [
+      272,
+      128,
+      0,
+      136,
+      0,
+      "CLIP"
+    ],
+    [
+      273,
+      119,
+      0,
+      136,
+      1,
+      "VAE"
+    ],
+    [
+      274,
+      120,
+      0,
+      136,
+      2,
+      "VAE"
+    ],
+    [
+      276,
+      115,
+      0,
+      136,
+      20,
+      "INT"
+    ],
+    [
+      277,
+      115,
+      1,
+      136,
+      21,
+      "INT"
+    ],
+    [
+      278,
+      191,
+      2,
+      136,
+      3,
+      "IMAGE"
+    ],
+    [
+      282,
+      191,
+      3,
+      136,
+      4,
+      "IMAGE"
+    ],
+    [
+      283,
+      191,
+      4,
+      136,
+      5,
+      "IMAGE"
+    ],
+    [
+      284,
+      191,
+      5,
+      136,
+      6,
+      "IMAGE"
+    ],
+    [
+      285,
+      191,
+      6,
+      136,
+      7,
+      "IMAGE"
+    ],
+    [
+      286,
+      191,
+      7,
+      136,
+      8,
+      "IMAGE"
+    ],
+    [
+      290,
+      148,
+      0,
+      149,
+      0,
+      "VIDEO"
+    ],
+    [
+      293,
+      150,
+      0,
+      151,
+      0,
+      "VIDEO"
+    ],
+    [
+      296,
+      152,
+      0,
+      153,
+      0,
+      "VIDEO"
+    ],
+    [
+      299,
+      191,
+      2,
+      154,
+      0,
+      "IMAGE"
+    ],
+    [
+      300,
+      191,
+      3,
+      154,
+      1,
+      "IMAGE"
+    ],
+    [
+      301,
+      191,
+      4,
+      154,
+      2,
+      "IMAGE"
+    ],
+    [
+      302,
+      191,
+      5,
+      154,
+      3,
+      "IMAGE"
+    ],
+    [
+      303,
+      191,
+      6,
+      154,
+      4,
+      "IMAGE"
+    ],
+    [
+      304,
+      191,
+      7,
+      154,
+      5,
+      "IMAGE"
+    ],
+    [
+      314,
+      154,
+      0,
+      136,
+      19,
+      "STRING"
+    ],
+    [
+      316,
+      156,
+      0,
+      136,
+      22,
+      "INT"
+    ],
+    [
+      317,
+      156,
+      1,
+      154,
+      19,
+      "FLOAT"
+    ],
+    [
+      318,
+      122,
+      0,
+      157,
+      0,
+      "IMAGE"
+    ],
+    [
+      319,
+      121,
+      0,
+      157,
+      1,
+      "AUDIO"
+    ],
+    [
+      322,
+      169,
+      0,
+      159,
+      0,
+      "MODEL"
+    ],
+    [
+      330,
+      165,
+      0,
+      154,
+      11,
+      "AUDIO"
+    ],
+    [
+      331,
+      166,
+      0,
+      154,
+      14,
+      "AUDIO"
+    ],
+    [
+      332,
+      167,
+      0,
+      154,
+      17,
+      "AUDIO"
+    ],
+    [
+      333,
+      165,
+      0,
+      136,
+      16,
+      "AUDIO"
+    ],
+    [
+      334,
+      166,
+      0,
+      136,
+      17,
+      "AUDIO"
+    ],
+    [
+      335,
+      167,
+      0,
+      136,
+      18,
+      "AUDIO"
+    ],
+    [
+      336,
+      127,
+      0,
+      169,
+      0,
+      "MODEL"
+    ],
+    [
+      342,
+      173,
+      0,
+      177,
+      0,
+      "NOISE"
+    ],
+    [
+      343,
+      174,
+      0,
+      177,
+      1,
+      "GUIDER"
+    ],
+    [
+      344,
+      175,
+      0,
+      177,
+      2,
+      "SAMPLER"
+    ],
+    [
+      345,
+      176,
+      0,
+      177,
+      3,
+      "SIGMAS"
+    ],
+    [
+      346,
+      177,
+      0,
+      122,
+      0,
+      "LATENT"
+    ],
+    [
+      347,
+      177,
+      0,
+      121,
+      0,
+      "LATENT"
+    ],
+    [
+      348,
+      136,
+      1,
+      177,
+      4,
+      "LATENT"
+    ],
+    [
+      349,
+      136,
+      0,
+      174,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      375,
+      188,
+      0,
+      195,
+      0,
+      "STRING"
+    ],
+    [
+      376,
+      188,
+      1,
+      195,
+      1,
+      "STRING"
+    ],
+    [
+      377,
+      188,
+      2,
+      195,
+      2,
+      "STRING"
+    ],
+    [
+      378,
+      188,
+      3,
+      195,
+      3,
+      "STRING"
+    ],
+    [
+      379,
+      195,
+      0,
+      189,
+      0,
+      "STRING"
+    ],
+    [
+      380,
+      195,
+      0,
+      190,
+      0,
+      "STRING"
+    ],
+    [
+      381,
+      195,
+      0,
+      191,
+      0,
+      "STRING"
+    ],
+    [
+      382,
+      195,
+      1,
+      189,
+      1,
+      "STRING"
+    ],
+    [
+      383,
+      189,
+      0,
+      190,
+      1,
+      "STRING"
+    ],
+    [
+      370,
+      190,
+      0,
+      191,
+      1,
+      "STRING"
+    ],
+    [
+      371,
+      191,
+      1,
+      199,
+      1,
+      "STRING"
+    ],
+    [
+      388,
+      198,
+      0,
+      199,
+      0,
+      "STRING"
+    ],
+    [
+      448,
+      216,
+      0,
+      217,
+      0,
+      "VIDEO"
+    ],
+    [
+      450,
+      220,
+      0,
+      221,
+      0,
+      "VIDEO"
+    ],
+    [
+      452,
+      224,
+      0,
+      225,
+      0,
+      "VIDEO"
+    ],
+    [
+      454,
+      228,
+      0,
+      229,
+      0,
+      "VIDEO"
+    ],
+    [
+      456,
+      191,
+      9,
+      232,
+      0,
+      "INT"
+    ],
+    [
+      457,
+      191,
+      9,
+      233,
+      0,
+      "INT"
+    ],
+    [
+      458,
+      191,
+      9,
+      234,
+      0,
+      "INT"
+    ],
+    [
+      459,
+      219,
+      0,
+      232,
+      1,
+      "H3_ACTION_CONFIG"
+    ],
+    [
+      460,
+      218,
+      0,
+      233,
+      2,
+      "IMAGE"
+    ],
+    [
+      461,
+      217,
+      1,
+      233,
+      3,
+      "AUDIO"
+    ],
+    [
+      462,
+      218,
+      0,
+      234,
+      2,
+      "IMAGE"
+    ],
+    [
+      463,
+      223,
+      0,
+      232,
+      2,
+      "H3_ACTION_CONFIG"
+    ],
+    [
+      464,
+      222,
+      0,
+      233,
+      4,
+      "IMAGE"
+    ],
+    [
+      465,
+      221,
+      1,
+      233,
+      5,
+      "AUDIO"
+    ],
+    [
+      466,
+      222,
+      0,
+      234,
+      3,
+      "IMAGE"
+    ],
+    [
+      467,
+      227,
+      0,
+      232,
+      3,
+      "H3_ACTION_CONFIG"
+    ],
+    [
+      468,
+      226,
+      0,
+      233,
+      6,
+      "IMAGE"
+    ],
+    [
+      469,
+      225,
+      1,
+      233,
+      7,
+      "AUDIO"
+    ],
+    [
+      470,
+      226,
+      0,
+      234,
+      4,
+      "IMAGE"
+    ],
+    [
+      471,
+      231,
+      0,
+      232,
+      4,
+      "H3_ACTION_CONFIG"
+    ],
+    [
+      472,
+      230,
+      0,
+      233,
+      8,
+      "IMAGE"
+    ],
+    [
+      473,
+      229,
+      1,
+      233,
+      9,
+      "AUDIO"
+    ],
+    [
+      474,
+      230,
+      0,
+      234,
+      5,
+      "IMAGE"
+    ],
+    [
+      475,
+      232,
+      0,
+      233,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      476,
+      232,
+      0,
+      234,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      477,
+      232,
+      0,
+      236,
+      3,
+      "BOOLEAN"
+    ],
+    [
+      480,
+      232,
+      1,
+      236,
+      2,
+      "STRING"
+    ],
+    [
+      481,
+      232,
+      2,
+      236,
+      4,
+      "FLOAT"
+    ],
+    [
+      482,
+      232,
+      3,
+      236,
+      5,
+      "FLOAT"
+    ],
+    [
+      483,
+      232,
+      5,
+      236,
+      7,
+      "FLOAT"
+    ],
+    [
+      484,
+      199,
+      0,
+      236,
+      0,
+      "STRING"
+    ],
+    [
+      485,
+      250,
+      0,
+      154,
+      18,
+      "STRING"
+    ],
+    [
+      494,
+      234,
+      0,
+      235,
+      0,
+      "IMAGE"
+    ],
+    [
+      495,
+      240,
+      0,
+      219,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      496,
+      240,
+      0,
+      244,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      503,
+      218,
+      1,
+      251,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      497,
+      241,
+      0,
+      223,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      498,
+      241,
+      0,
+      245,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      504,
+      222,
+      1,
+      252,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      499,
+      242,
+      0,
+      227,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      500,
+      242,
+      0,
+      246,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      505,
+      226,
+      1,
+      253,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      501,
+      243,
+      0,
+      231,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      502,
+      243,
+      0,
+      247,
+      0,
+      "BOOLEAN"
+    ],
+    [
+      506,
+      230,
+      1,
+      254,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      507,
+      191,
+      9,
+      248,
+      0,
+      "INT"
+    ],
+    [
+      508,
+      244,
+      0,
+      248,
+      1,
+      "H3_FACE_CONFIG"
+    ],
+    [
+      509,
+      245,
+      0,
+      248,
+      2,
+      "H3_FACE_CONFIG"
+    ],
+    [
+      510,
+      246,
+      0,
+      248,
+      3,
+      "H3_FACE_CONFIG"
+    ],
+    [
+      511,
+      247,
+      0,
+      248,
+      4,
+      "H3_FACE_CONFIG"
+    ],
+    [
+      512,
+      248,
+      0,
+      249,
+      6,
+      "BOOLEAN"
+    ],
+    [
+      513,
+      248,
+      1,
+      249,
+      5,
+      "STRING"
+    ],
+    [
+      514,
+      248,
+      2,
+      249,
+      7,
+      "FLOAT"
+    ],
+    [
+      515,
+      236,
+      0,
+      249,
+      0,
+      "STRING"
+    ],
+    [
+      516,
+      249,
+      0,
+      250,
+      0,
+      "STRING"
+    ],
+    [
+      518,
+      191,
+      9,
+      255,
+      0,
+      "INT"
+    ],
+    [
+      519,
+      232,
+      0,
+      255,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      520,
+      251,
+      0,
+      255,
+      2,
+      "IMAGE"
+    ],
+    [
+      521,
+      252,
+      0,
+      255,
+      3,
+      "IMAGE"
+    ],
+    [
+      522,
+      253,
+      0,
+      255,
+      4,
+      "IMAGE"
+    ],
+    [
+      523,
+      254,
+      0,
+      255,
+      5,
+      "IMAGE"
+    ],
+    [
+      524,
+      255,
+      0,
+      256,
+      0,
+      "IMAGE"
+    ],
+    [
+      525,
+      191,
+      8,
+      258,
+      0,
+      "FLOAT"
+    ],
+    [
+      526,
+      258,
+      0,
+      156,
+      0,
+      "FLOAT"
+    ],
+    [
+      527,
+      132,
+      0,
+      258,
+      1,
+      "FLOAT"
+    ],
+    [
+      528,
+      149,
+      0,
+      260,
+      0,
+      "IMAGE"
+    ],
+    [
+      529,
+      151,
+      0,
+      261,
+      0,
+      "IMAGE"
+    ],
+    [
+      531,
+      260,
+      0,
+      136,
+      10,
+      "IMAGE"
+    ],
+    [
+      532,
+      260,
+      0,
+      154,
+      9,
+      "IMAGE"
+    ],
+    [
+      533,
+      261,
+      0,
+      136,
+      11,
+      "IMAGE"
+    ],
+    [
+      534,
+      261,
+      0,
+      154,
+      12,
+      "IMAGE"
+    ],
+    [
+      536,
+      263,
+      0,
+      237,
+      1,
+      "*"
+    ],
+    [
+      537,
+      232,
+      0,
+      237,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      538,
+      237,
+      0,
+      136,
+      12,
+      "IMAGE"
+    ],
+    [
+      539,
+      237,
+      0,
+      154,
+      15,
+      "IMAGE"
+    ],
+    [
+      540,
+      232,
+      0,
+      263,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      542,
+      149,
+      1,
+      264,
+      0,
+      "AUDIO"
+    ],
+    [
+      543,
+      151,
+      1,
+      265,
+      0,
+      "AUDIO"
+    ],
+    [
+      544,
+      153,
+      1,
+      266,
+      0,
+      "AUDIO"
+    ],
+    [
+      545,
+      260,
+      1,
+      264,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      546,
+      261,
+      1,
+      265,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      548,
+      264,
+      0,
+      136,
+      13,
+      "AUDIO"
+    ],
+    [
+      549,
+      264,
+      0,
+      154,
+      10,
+      "AUDIO"
+    ],
+    [
+      550,
+      265,
+      0,
+      136,
+      14,
+      "AUDIO"
+    ],
+    [
+      551,
+      265,
+      0,
+      154,
+      13,
+      "AUDIO"
+    ],
+    [
+      552,
+      266,
+      0,
+      136,
+      15,
+      "AUDIO"
+    ],
+    [
+      553,
+      266,
+      0,
+      154,
+      16,
+      "AUDIO"
+    ],
+    [
+      554,
+      260,
+      1,
+      250,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      555,
+      261,
+      1,
+      250,
+      2,
+      "BOOLEAN"
+    ],
+    [
+      557,
+      232,
+      0,
+      250,
+      4,
+      "BOOLEAN"
+    ],
+    [
+      558,
+      233,
+      0,
+      267,
+      0,
+      "IMAGE"
+    ],
+    [
+      559,
+      267,
+      0,
+      263,
+      0,
+      "IMAGE"
+    ],
+    [
+      560,
+      156,
+      0,
+      267,
+      1,
+      "INT"
+    ],
+    [
+      561,
+      159,
+      0,
+      178,
+      0,
+      "MODEL"
+    ],
+    [
+      564,
+      232,
+      7,
+      236,
+      1,
+      "FLOAT"
+    ],
+    [
+      565,
+      232,
+      4,
+      236,
+      6,
+      "FLOAT"
+    ],
+    [
+      566,
+      232,
+      6,
+      236,
+      8,
+      "FLOAT"
+    ],
+    [
+      567,
+      248,
+      3,
+      249,
+      1,
+      "FLOAT"
+    ],
+    [
+      568,
+      248,
+      4,
+      249,
+      2,
+      "FLOAT"
+    ],
+    [
+      569,
+      248,
+      5,
+      249,
+      3,
+      "FLOAT"
+    ],
+    [
+      570,
+      248,
+      6,
+      249,
+      4,
+      "FLOAT"
+    ],
+    [
+      571,
+      197,
+      0,
+      176,
+      0,
+      "MODEL"
+    ],
+    [
+      572,
+      197,
+      0,
+      174,
+      0,
+      "MODEL"
+    ],
+    [
+      573,
+      178,
+      0,
+      197,
+      0,
+      "MODEL"
+    ],
+    [
+      574,
+      217,
+      0,
+      268,
+      0,
+      "IMAGE"
+    ],
+    [
+      575,
+      268,
+      0,
+      218,
+      0,
+      "IMAGE"
+    ],
+    [
+      576,
+      221,
+      0,
+      269,
+      0,
+      "IMAGE"
+    ],
+    [
+      577,
+      269,
+      0,
+      222,
+      0,
+      "IMAGE"
+    ],
+    [
+      578,
+      225,
+      0,
+      270,
+      0,
+      "IMAGE"
+    ],
+    [
+      579,
+      270,
+      0,
+      226,
+      0,
+      "IMAGE"
+    ],
+    [
+      580,
+      229,
+      0,
+      271,
+      0,
+      "IMAGE"
+    ],
+    [
+      581,
+      271,
+      0,
+      230,
+      0,
+      "IMAGE"
+    ],
+    [
+      584,
+      153,
+      0,
+      273,
+      0,
+      "IMAGE"
+    ],
+    [
+      585,
+      273,
+      0,
+      237,
+      0,
+      "IMAGE"
+    ],
+    [
+      586,
+      273,
+      1,
+      266,
+      1,
+      "BOOLEAN"
+    ],
+    [
+      587,
+      273,
+      1,
+      250,
+      3,
+      "BOOLEAN"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 2,
+      "title": "01 模型加载",
+      "bounding": [
+        -3050,
+        -360,
+        740,
+        920
+      ],
+      "color": "#8A8",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "02 输出规格、素材校验与提示词",
+      "bounding": [
+        -2300,
+        -360,
+        1320,
+        920
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "03 H3 生成与采样",
+      "bounding": [
+        -970,
+        -360,
+        1330,
+        920
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "04 解码、商业质检与交付",
+      "bounding": [
+        370,
+        -360,
+        1540,
+        920
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "06 普通参考视频 / Video 1-3（各自独立）",
+      "bounding": [
+        -1990,
+        580,
+        750,
+        700
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 8,
+      "title": "06B 普通参考开关、配对音频与独立音频",
+      "bounding": [
+        -1220,
+        580,
+        1150,
+        700
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 10,
+      "title": "前期制作：剧本 → 资产提示词 → 手动资产库 → 六图分镜",
+      "bounding": [
+        -3040,
+        -1620,
+        3680,
+        1240
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 11,
+      "title": "视频生产：ComfyUI 每次运行一个 15 秒片段",
+      "bounding": [
+        -4060,
+        -270,
+        900,
+        1220
+      ],
+      "color": "#54546c",
+      "flags": {}
+    },
+    {
+      "id": 12,
+      "title": "01B H3 注意力加速：Sage + Sol-Attn V2",
+      "bounding": [
+        -3050,
+        580,
+        1050,
+        900
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": "h3-action-s01",
+      "title": "S01 / 15秒身体+手部+面部表情迁移（默认关闭）",
+      "bounding": [
+        -1980,
+        1300,
+        3380,
+        610
+      ],
+      "color": "#7d3f64",
+      "flags": {}
+    },
+    {
+      "id": "h3-action-s02",
+      "title": "S02 / 15秒身体+手部+面部表情迁移（默认关闭）",
+      "bounding": [
+        -1980,
+        1930,
+        3380,
+        610
+      ],
+      "color": "#825024",
+      "flags": {}
+    },
+    {
+      "id": "h3-action-s03",
+      "title": "S03 / 15秒身体+手部+面部表情迁移（默认关闭）",
+      "bounding": [
+        -1980,
+        2560,
+        3380,
+        610
+      ],
+      "color": "#7d3f64",
+      "flags": {}
+    },
+    {
+      "id": "h3-action-s04",
+      "title": "S04 / 15秒身体+手部+面部表情迁移（默认关闭）",
+      "bounding": [
+        -1980,
+        3190,
+        3380,
+        610
+      ],
+      "color": "#825024",
+      "flags": {}
+    },
+    {
+      "id": "h3-action-routing",
+      "title": "当前分段动作 / 表情路由（只执行当前 S01-S04）",
+      "bounding": [
+        1420,
+        1300,
+        1810,
+        2450
+      ],
+      "color": "#3f657e",
+      "flags": {}
+    },
+    {
+      "id": "h3-native-video-prompts",
+      "title": "06C H3 视频参考提示词与资产优先规则",
+      "bounding": [
+        -50,
+        580,
+        1080,
+        700
+      ],
+      "color": "#3f657e",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.573085533011681,
+      "offset": [
+        3457.94104130903,
+        303.0077603409556
+      ]
+    },
+    "frontendVersion": "1.47.11",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true,
+    "minimax_h3_commercial": {
+      "source": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/video_minimax_h3_r2v.json",
+      "profile": "9 pictures + 3 videos with optional synchronized soundtracks",
+      "requires": "ComfyUI 0.30.0+",
+      "revision": "3.0-clean-layout",
+      "output_qc": true,
+      "frame_alignment": "17k+5 at 24 fps",
+      "reviewed_reference_workflow": "58-MiniMax-H3 参考生视频 工作流.json",
+      "sampling_baseline": "res_multistep / simple / 20 steps",
+      "layout": "six-stage commercial production layout",
+      "te_speed": {
+        "enabled": true,
+        "processing_control_value": 0.12,
+        "processing_percent_1": 0.1,
+        "processing_percent_2": 0.9,
+        "mcs": 2,
+        "device": "auto",
+        "placement": "UNETLoader -> TESpeedMiniMaxH3 -> BasicScheduler/BasicGuider",
+        "source_patch": "TE-Speed-MiniMaxH3"
+      },
+      "reserved_vram": {
+        "gb": 1,
+        "mode": "manual",
+        "clean_gpu_before": true,
+        "placement": "UNETLoader -> ReservedVRAMSetter -> SageAttention -> Turbo LoRA"
+      }
+    },
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "sol_attn_v2": {
+      "node": "SolAttnMiniMax",
+      "source": "H3KJ节点/sol_attn_minimax_v2.py",
+      "policy": "Sage fallback; conservative quality gates"
+    },
+    "face_refine": {
+      "node_pack": "ComfyUI-H3-FaceRefine",
+      "output_node": 212,
+      "default_mode": "bypassed",
+      "audio_lock": "MiniMaxH3NativeAudioLock"
+    },
+    "h3_action_reference": {
+      "enabled_by_default": false,
+      "source_workflow": "1212121212121.json",
+      "controller_node": "H3ActionCaptureSwitch + H3ActionReferencePrompt + H3FaceExpressionPrompt",
+      "routing": "Action source skips the first 12 frames, crops the bottom overlay band, then feeds DWPose. Final video frames are not cropped or stretched.",
+      "pose_note": "Raw frames preserve facial performance information better than a colored pose preview. H3 still treats the raw action video as soft native ref2va conditioning, not a ControlNet hard lock.",
+      "layout": "Organized columns: ordinary video inputs left, paired audio switches center-left, H3 prompt center, four aligned action rows below, active-segment routing right.",
+      "action_video_slot": 3,
+      "ordinary_video_defaults": "Video 1/2/3 switches default off; enable only the desired ordinary reference.",
+      "asset_priority": "asset-library character, scene and props remain authoritative; reference media supplies performance guidance",
+      "reference_image_size": "match",
+      "frame_alignment": "Raw action frames are resampled to H3FrameLengthCommercial.length_frames before entering Video 3.",
+      "performance_baseline": "User-verified ~15 minute 15-second workflow: pruned ref2va int8 + v4_step600_ema LoRA + Memory Efficient Sage + beta 8 steps.",
+      "disabled_for_performance": "SolAttnMiniMax, extra Realism People LoRA, DWPose/facial preview execution.",
+      "action_reference_spatial_limit": "384px short edge, temporal sequence preserved at aligned 24fps frame count.",
+      "transfer_controls": "overall/body/arms/hands/legs/head and expression/face-head/gaze/mouth/overall each range 0..1",
+      "zero_behavior": "overall transfer 0 disables the corresponding action or face prompt path and action reference selection",
+      "vr​​am_guard": "ref_image_size forced to match; action frames limited to 384px short edge; max is prohibited for 16GB workflow",
+      "subtitle_guard": "S01-S04 action source frames remove the bottom overlay band before DWPose extraction. Final video frames are not cropped or stretched.",
+      "action_transfer_target": "about 60 percent resemblance, not perfect replication"
+    },
+    "duration_control": {
+      "mode_node": 258,
+      "auto_source": "H3SegmentProductionManager.SEGMENT_DURATION",
+      "manual_source": "02 Output Duration",
+      "range": "4-15 seconds",
+      "frame_alignment": "H3FrameLengthCommercial",
+      "project_duration_note": "Script duration remains independent from current clip duration"
+    }
+  },
+  "version": 0.4
+}
